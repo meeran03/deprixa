@@ -392,9 +392,9 @@
 											<div class="col-md-12">
 												<div class="row">
 													<div class="col-sm-12 col-md-12">
-														<input type="hidden" name="r_address" class="search_addr">
-														<input type="hidden" name="latitude" class="search_latitude">
-														<input type="hidden" name="longitude" class="search_longitude">	
+														<input type="hidden" name="r_address" value="123" class="search_addr">
+														<input type="hidden" name="latitude" value="31.5" class="search_latitude">
+														<input type="hidden" name="longitude" value="436.67" class="search_longitude">	
 														<input type="hidden" name="status_prealert" value="Pre Alert">	
 														<button  name="dosubmit" type="submit" class="btn btn-success"> <i class="icon-plane"></i>&nbsp; Create pre alert now!</button>
 														<a href="prealert.php" class="btn btn-dark"><i class="icon-action-undo"></i> Create another previous alert</a> 

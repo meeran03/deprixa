@@ -83,12 +83,8 @@
 							</ul>
                         </li>
 
-						<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti ti-gift" style="color:#6610f2"></i><span class="hide-menu"> My Services</span></a>
-                            <ul aria-expanded="false" class="first-level">
-								<li class="sidebar-item"><a href="consolidate_list.php" class="sidebar-link"><i class="mdi mdi-check"></i><span class="hide-menu"> <?php echo $lang['left10'] ?> </span></a></li>
-								
-							</ul>
-                        </li>
+						<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="services.php" aria-expanded="false"><i class="fa fa-tasks "></i><span class="hide-menu"> My Services </span></a></li>
+
 						
 						
 						<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-chess-board" style="color:#17a2b8"></i><span class="hide-menu"> <?php echo $lang['left12'] ?></span></a>
@@ -306,7 +302,7 @@
 							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="history_quotes.php" aria-expanded="false"><i class="ti ti-archive"></i><span class="hide-menu"> <?php echo $lang['left42'] ?> </span></a></li>
 							
 							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="delivered_booking_list.php" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu"> <?php echo $lang['left705'] ?> </span></a></li>
-							
+						
 							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="user_client.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu"> <?php echo $lang['left43'] ?> </span></a></li>
 
 							<li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu"></span></li>

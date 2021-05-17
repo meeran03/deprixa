@@ -129,9 +129,9 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group position-relative">                                                
-                                                    <label><?php echo $lang['left140'] ?> <span class="text-danger">*</span></label>
+                                                    <label>Last Name<span class="text-danger">*</span></label>
                                                     <i class="mdi mdi-account ml-3 icons"></i>
-                                                    <input type="text" class="form-control pl-5" placeholder="<?php echo $lang['left141'] ?>" name="lname" required="">
+                                                    <input type="text" class="form-control pl-5" placeholder="Last Name" name="lname" required="">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

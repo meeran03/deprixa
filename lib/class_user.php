@@ -1212,6 +1212,15 @@
               if (empty($file_info))
                   Filter::$msgs['avatar'] = "Tipo de archivo ilegal. Solo se permiten tipos de archivo jpg y png.";
           }
+
+          if (!empty($_FILES['card_id']['name'])) {
+			if (!preg_match("/(\.jpg|\.png)$/i", $_FILES['card_id']['name'])) {
+				Filter::$msgs['card_id'] = "Illegal file type. Only jpg and png file types are allowed.";
+			}
+			$file_info = getimagesize($_FILES['card_id']['tmp_name']);
+			if (empty($file_info))
+				Filter::$msgs['card_id'] = "Tipo de archivo ilegal. Solo se permiten tipos de archivo jpg y png.";
+		}
 		  
 		  if (empty(Filter::$msgs)) {
 			  
@@ -1241,6 +1250,18 @@
                   move_uploaded_file($_FILES['avatar']['tmp_name'], $thumbName);
                   $data['avatar'] = $tName . "." . strtolower($text);
               }
+
+              if (!empty($_FILES['card_id']['name'])) {
+				$thumbdir = UPLOADS;
+				$tName = "AVT_" . randName();
+				$text = substr($_FILES['card_id']['name'], strrpos($_FILES['card_id']['name'], '.') + 1);
+				$thumbName = $thumbdir . $tName . "." . strtolower($text);
+				if (Filter::$id && $thumb = getValueById("card_id", self::uTable, Filter::$id)) {
+					@unlink($thumbdir . $thumb);
+				}
+				move_uploaded_file($_FILES['card_id']['tmp_name'], $thumbName);
+				$data['card_id'] = $tName . "." . strtolower($text);
+			}
 			     
 			  $userpass = getValueById("password", self::uTable, $this->uid);
 			  

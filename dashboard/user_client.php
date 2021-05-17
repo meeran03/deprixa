@@ -33,7 +33,7 @@
 	redirect_to("login.php");
 	
 	$row = $user->getUserData();
-		
+	$ser = $services->getAllServices() ;
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -50,7 +50,9 @@
     <title><?php echo $lang['user_manage48'] ?> | <?php echo $core->site_name ?></title>
     <!-- This page plugin CSS -->
     <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
 	
@@ -165,6 +167,53 @@
 					<!-- Column -->
 					<!-- Column -->
 					<div class="col-lg-8 col-xlg-9 col-md-7">
+
+
+					<div class="table-responsive">
+							<table id="zero_config" cellpadding="0" cellspacing="0" border="0" class="table table-striped">
+								<thead class="bg-secondary border-0 text-white">
+									<tr class="row100 head">
+										<th class="th-sm"><b>Name</b></th>
+										<th class="th-sm"><b>Details</b></th>
+										<th class="th-sm"><b>Status</b></th>
+									</tr>
+								</thead>
+								<tbody id="projects-tbl">
+									<tr class="row100">
+										<?php if(!$ser):?>
+										<tr>
+											<td colspan="7">
+											<?php echo "
+											<i align='center' class='display-3 text-warning d-block'><img src='assets/images/alert/ohh_shipment.png' width='160' /></i>
+											</br>
+											<p style='font-size: 20px; -webkit-font-smoothing: antialiased; color: #737373;' align='center'>Currently, There are no Available Services</p>
+											",false;?>
+											</td>
+										</tr>
+										<?php else:?>
+											<?php foreach ($ser  as $service):
+												
+												
+												?>								
+												<td><?php echo $service->name;?></td>
+												<td><?php echo $service->url;?></td>
+												<td>
+												<div class="custom-control custom-switch">
+													<input type="checkbox" class="custom-control-input" id="switch1">
+													<label class="custom-control-label" for="switch1">Subscribed</label>
+												</div>
+												</td>
+												
+											</tr>											
+											<?php endforeach;?>
+										<?php unset($service);?>
+										<?php endif;?>
+								</tbody>	
+							</table>
+							<!-- column -->
+						</div>
+
+
 						<div class="card">
 							<!-- Tabs -->
 							<ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
@@ -340,6 +389,22 @@
 														</div>
 													</div>
 												</div>
+
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="lastName1">User ID</label>
+															<input class="form-control" name="card_id" type="file" />
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="emailAddress1">User ID</label>
+															<br>
+															<img src="../thumbmaker.php?src=<?php echo UPLOADURL;?><?php echo ($row->card_id) ? $row->card_id : "blank.png";?>&amp;w=40&amp;h=40&amp;s=1&amp;a=t1" alt="" title="" class="avatar" />
+														</div>
+													</div>
+												</div>
 												
 												<div class="row">
 													<div class="col-md-4">
@@ -377,6 +442,8 @@
 													<button class="btn btn-outline-primary btn-confirmation" name="dosubmit" type="submit"><?php echo $lang['user-account20'] ?><span><i class="icon-ok"></i></span></button>
 												</div>
 											</div>
+
+
 										</form>
 									</div>
 								</div>
@@ -441,7 +508,25 @@
 	<!--This page plugins -->
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="dist/js/pages/datatable/datatable-basic.init.js"></script>
-	
+	<script>
+				$( "#save_item" ).submit(function( event ) {
+					parametros = $(this).serialize();
+					$.ajax({
+						type: "POST",
+						url:'ajax/add_items_courier.php',
+						data: parametros,
+						 beforeSend: function(objeto){
+							 $('.items').html('Processing wait...');
+						  },
+						success:function(data){
+							$(".items").html(data).fadeIn('slow');
+							$("#myModal").modal('hide');
+						}
+					})
+					
+				  event.preventDefault();
+				})
+	</script>
 
 </body>
 

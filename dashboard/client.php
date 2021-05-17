@@ -34,7 +34,9 @@
   redirect_to("login.php");
   
 	$row = $user->getUserData();
-	
+    if ($row->locker == "") {
+        redirect_to("user_client.php");
+    }
 
 ?>
 
@@ -108,7 +110,11 @@
 			<!-- ============================================================== -->
 
 
-				 <?php (Filter::$do && file_exists(Filter::$do.".php")) ? include(Filter::$do.".php") : include("ship_client.php");?>
+				 <?php 
+  
+                    (Filter::$do && file_exists(Filter::$do.".php")) ? include(Filter::$do.".php") : include("ship_client.php");
+                        
+                 ?>
 				
             </div>
             <!-- ============================================================== -->

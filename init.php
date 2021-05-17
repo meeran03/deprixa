@@ -70,6 +70,11 @@
   require_once(BASEPATH . "lib/class_user.php");
   Registry::set('Users',new Users());
   $user = Registry::get("Users");
+
+  //StartUser Class 
+  require_once(BASEPATH . "lib/class_services.php");
+  Registry::set('Services',new Services());
+  $services = Registry::get("Services");
   
   //StartUser Class 
   require_once(BASEPATH . "lib/class_courier.php");
