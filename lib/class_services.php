@@ -37,6 +37,12 @@
         return ($row) ? $row : 0;
     }
 
+    public function getBuySubServices() {
+        $sql = "SELECT *  FROM sub_services s WHERE s.service_id=2 ORDER BY s.id ASC";
+        $row = self::$db->fetch_all($sql);
+        return ($row) ? $row : 0;
+    }
+
     public function getUserSubscription(int $id, int $serv) {
         $sql = "SELECT *  FROM subscriptions s WHERE s.service_id=".$serv." AND s.user_id=".$id." ORDER BY s.id ASC";
         $row = self::$db->fetch_all($sql);

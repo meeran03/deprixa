@@ -35,7 +35,22 @@
   redirect_to("login.php");
   
 	$row = $user->getUserData();
-	
+	$ser = $services->getAllServices();
+	$subs = $services->getBuySubServices();
+	$inspect;
+	$return;
+	$discard;
+	foreach ($subs as $service) {
+		if ($service->name == "Inspection" ) {
+			$inspect = $service;
+		}
+		else if ($service->name == "Discard" ) {
+			$discard = $service;
+		}
+		else {
+			$return = $service;
+		}
+	}
 
 ?>
 
@@ -226,19 +241,22 @@
 										<table id="zero_config" cellpadding="0" cellspacing="0" border="0" class="table table-striped">
 											<thead class="bg-secondary border-0 text-white">
 												<tr class="row100 head">
-													<th class="th-sm"><b><?php echo $lang['booking-list2'] ?></b></th>
-													<th class="th-sm"><b><?php echo $lang['booking-list3'] ?></b></th>
-													<th class="th-sm"><b><?php echo $lang['booking-list5'] ?></b></th>
-													<th class="th-sm"><b><?php echo $lang['booking-list6'] ?></b></th>
-													<th class="th-sm"><b><?php echo $lang['booking-list7'] ?></b></th>
+													<th class="th-sm"><b>Date Received</b></th>
+													<th class="th-sm"><b>Sender</b></th>
+													<th class="th-sm"><b>Tracking Id</b></th>
+													<th class="th-sm"><b>Actual Weight</b></th>
+													<th class="th-sm"><b>W(cm)</b></th>
+													<th class="th-sm"><b>L(cm)</b></th>
+													<th class="th-sm"><b>H(cm)</b></th>
+													<th class="th-sm"><b>Volume Weight</b></th>
 													<th class="th-sm"><b><?php echo $lang['booking-list8'] ?></b></th>
-													<th class="th-sm"><b><?php echo $lang['left1050'] ?></b></th>
+													<th class="th-sm"><b>Actions</b></th>
 												</tr>
 											</thead>
 											<tbody id="projects-tbl">
 												<tr class="row100">
 													<?php if(!$courier_onlinerow):?>
-													<tr>
+													<tr class="accordion-toggle collapsed" id="accordion1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
 														<td colspan="7">
 														<?php echo "
 														<i align='center' class='display-3 text-warning d-block'><img src='assets/images/alert/ohh_shipment.png' width='160' /></i>
@@ -250,42 +268,41 @@
 													</tr>
 													<?php else:?>
 													<?php foreach ($courier_onlinerow  as $row):
+																							
 													
-													$suma=0;
-													// total shipping cost
-													$total1=$row->r_costtotal;
-													$total1=number_format($total1,2,'.','');
-													$suma+=$total1;
-													
-													
-													?>								
-													<td><b><?php echo $row->order_inv;?></b></td>
+													?>				
 													<td><?php echo $row->created;?></td>
 													<td><?php echo $row->r_name;?></td>
-													<td><?php echo $row->r_dest;?> | <?php echo $row->r_city;?> </td>
-													<td><span style="background: <?php echo $row->color; ?>;"  class="label label-large" ><?php echo $row->status_courier;?></span></td>
+													<td><b><?php echo $row->order_inv;?></b></td>
+													<td class="center" style="text-align:center" ><b class="center"><?php echo $row->r_weight;?></b></td>
+													<td class="center" style="text-align:center" ><b class="center" ><?php echo $row->width;?></b></td>
+													<td class="center" style="text-align:center" ><b class="center" ><?php echo $row->length;?></b></td>
+													<td class="center" style="text-align:center" ><b class="center" ><?php echo $row->height;?></b></td>
+													<td class="center" style="text-align:center" ><b class="center" ><?php echo $row->v_weight;?></b></td>
 													<td><?php echo $row->r_curren;?> <span class="text-black"><strong><?php echo $suma;?></strong></td>
-													<?php if ($row->status_courier == 'Pending'){ ?>
-													<td><span class="text-danger"><?php echo $lang['langs_01058'] ?></span></td>
-													<?php }else{ ?>
-													
-														<?php if ($row->pay_mode == 'Paypal' && $row->payment_status == 0){ ?>
-														<script>
-															pymnt_initiate("<?php echo $suma; ?>","<?php echo $row->order_inv;?>","pay-btn<?php echo $row->id; ?>","<?php echo $row->id;?>");
-														</script>
-														<td id="pay-btn<?php echo $row->id; ?>"></td>
-														<?php }elseif ($row->pay_mode == 'Credit card' && $row->payment_status == 0){ ?>
-														<script>
-															pymnt_initiate("<?php echo $suma; ?>","<?php echo $row->order_inv;?>","pay-btn<?php echo $row->id; ?>","<?php echo $row->id;?>");
-														</script>
-														<td id="pay-btn<?php echo $row->id; ?>"></td>
-														<?php }elseif ($row->pay_mode == 'Cash' && $row->payment_status == 1){ ?>
-														<td><img src='assets/images/alert/paid.png' width='68' /></td>
-														<?php }else{ ?>
-														
-														<?php } ?>
-													<?php } ?>	
-												</tr>											
+													<td align='center' >
+														<a  href="edit_courier_client.php?do=edit_courier&amp;action=ship&amp;id=<?php echo $row->id;?>" data-toggle="tooltip" data-placement="top" title="<?php echo "View" ?>"><i style="color:#343a40" class="ti-pencil"></i></a>
+														<a  href="#" data-role="update" data-id="<?php echo $row->id ;?>">
+														<?php echo "<script>console.log(".json_encode($courier_onlinerow).");</script>"; ?>
+															<i style="color:#343a40" class="ti-package"></i>
+															<input type="hidden" 
+																value="<?php echo $row->inspect_id ;?>" 
+																id="inspect_id<?php echo $row->id ;?>" 
+																name="inspect_id" >
+															<input type="hidden" 
+																value="<?php echo $row->discard_id ;?>" 
+																id="discard_id<?php echo $row->id ;?>" 
+																name="discard_id"
+																>
+															<input type="hidden" 
+																value="<?php echo $row->return_id ;?>" 
+																id="return_id<?php echo $row->id ;?>" 
+																name="return_id" >
+														</a>
+													</td>
+											
+												</tr>
+																						
 												<?php endforeach;?>
 												<?php unset($row);?>
 												<?php endif;?>
@@ -303,10 +320,179 @@
 
 				
             </div>
+
+			<form class="form-horizontal" name="save_invoice" id="save_invoice">
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+									<div class="card-body">
+				<h4 class="card-title"><i class="fas fas fa-boxes" style="color:#36bea6"></i> Add A New Sub Service</h4>
+					<div class="table-responsive">
+						<table id="zero_config121" class="table table-striped customTable ">
+							<thead class="bg-darks border-0 text-white">
+								<tr>
+									<th class='text-center'><b>NAME</b></th>
+									<th class='text-center'><b>Price</b></th>
+									<th class='text-center'><b>Actions</b></th>
+								</tr>
+							</thead>
+							<tbody >
+							<tr class="row100">
+							<input type="hidden" id="idHolder" >
+
+												
+												
+								<td class="center" style="text-align:center"><?php echo $inspect->name ;?></td>
+								<?php  ;?>
+								<td class="center" style="text-align:center"><?php echo $inspect->price;?></td>
+								<td class="center" >
+									<div class="form-group " style="text-align:center" >
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" id="inspect_button" name="notifyClient" tabindex="0">
+											<span class="custom-control-indicator"></span>
+										</label>
+									</div>
+								</td>
+							</tr>
+							<tr class="row100">
+
+												
+												
+								<td class="center" style="text-align:center"><?php echo $return->name ;?></td>
+								<?php  ;?>
+								<td class="center" style="text-align:center"><?php echo $return->price;?></td>
+								<td class="center" >
+									<div class="form-group " style="text-align:center" >
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" id="return_button" name="notifyClient" tabindex="0">
+											<span class="custom-control-indicator"></span>
+										</label>
+									</div>
+								</td>
+							</tr>
+
+							<tr class="row100">
+
+												
+												
+								<td class="center" style="text-align:center"><?php echo $discard->name ;?></td>
+								<?php  ;?>
+								<td class="center" style="text-align:center"><?php echo $discard->price;?></td>
+								<td class="center" >
+									<div class="form-group " style="text-align:center" >
+										<label class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" id="discard_button" name="notifyClient" tabindex="0">
+											<span class="custom-control-indicator"></span>
+										</label>
+									</div>
+								</td>
+							</tr>										
+										<?php unset($service);?>
+
+							</tbody>
+						</table>
+					</div>		
+														
+				</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
+										<button type="submit" class="btn btn-default" id="save" >Update</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+				
+					<!-- End row -->
+				</div>
+		</form>
+
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- footer -->
-			
+			<script>
+			  $(document).ready(function(){
+
+				//  append values in input fields
+
+				  $(document).on('click','a[data-role=update]',function(e){
+						var id;
+						var inspect_id;
+						var return_id  ;
+						var discard_id ;
+						id  = $(this).data('id');
+						inspect_id  = $(e.currentTarget).find("input[name=inspect_id]").val()
+						return_id  = $(e.currentTarget).find("input[name=return_id]").val()
+						discard_id  = $(e.currentTarget).find("input[name=discard_id]").val()
+						console.log("Inspect id is ",inspect_id);
+						console.log("return id is ",return_id)
+						console.log(e.currentTarget);
+						console.log(inspect_id, " : ","<?php echo $inspect->id ?>")
+						console.log(return_id, " : ","<?php echo $return->id ?>")
+						console.log(discard_id, " : ","<?php echo $discard->id ?>")
+						$(`#inspect_button`).val(inspect_id==="<?php echo $inspect->id ?>" ? ["on"] : ["off"]);
+						$(`#return_button`).val(return_id=== "<?php echo $return->id ?>" ? ["on"] : ["off"]);
+						$(`#discard_button`).val(discard_id==="<?php echo $discard->id ?>" ? ["on"] : ["off"]);
+						$(`#idHolder`).val([id]);
+				
+						$('#save_invoice_modal').modal('toggle');
+				  });
+				  // now create event to get data from fields and update in database 
+
+				   $('#save').click(function(e){
+					   e.preventDefault()
+					  var inspect_id =  $(`#inspect_button`).prop('checked') ? "<?php echo $inspect->id; ?>" : "";
+					  var return_id =  $(`#return_button`).prop('checked') ? "<?php echo $return->id; ?>" : "";
+					  var discard_id =   $(`#discard_button`).prop('checked') ? "<?php echo $discard->id; ?>" : "";
+					  var id =   $(`#idHolder`).val();
+					  var inspect_price =  $(`#inspect_button`).prop('checked') ? "<?php echo $inspect->price; ?>" : "";
+					  var return_price =   $(`#return_button`).prop('checked') ? "<?php echo $return->price; ?>" : "";
+					  var discard_price =   $(`#discard_button`).prop('checked') ? "<?php echo $discard->price; ?>" : "";
+					console.log(inspect_id)
+					console.log(return_id)
+					console.log($(`#discard_button`).prop('checked') )
+					console.log($(`#return_button`).prop('checked') )
+					let d = {
+							  			inspect_id : inspect_id !== "" ? parseInt(inspect_id)  : null  , 
+										return_id: return_id !== "" ? parseInt(return_id) : null  , 
+										discard_id : discard_id !== "" ? parseInt(discard_id) : null  , 
+										inspect_price : inspect_price !== "" ? parseInt(inspect_price)  : null, 
+										return_price : return_price !== "" ? parseInt(return_price)  : null, 
+										discard_price : discard_price !== "" ? parseInt(discard_price) : null, 
+										id: id !== "" ? parseInt(id) : null }
+
+										console.log(d)
+
+					  $.ajax({
+						  url      : 'update_addcourier.php',
+						  method   : 'post', 
+						  data     : d,
+						  success  : function(response){
+										// now update user record in table 
+										//  $('#'+id).children('td[data-target=detail_description]').text(detail_description);
+										//  $('#'+id).children('td[data-target=detail_qty]').text(detail_qty);
+										//  $('#'+id).children('td[data-target=detail_weight]').text(detail_weight);
+										//  $('#'+id).children('td[data-target=detail_length]').text(detail_length);
+										//  $('#'+id).children('td[data-target=detail_width]').text(detail_width);
+										//  $('#'+id).children('td[data-target=detail_height]').text(detail_height);
+										//  $('#edit_courier').modal('toggle'); 
+										// if (response == "refresh"){
+										//   window.location.reload(true);   // This is not jQuery but simple plain ol' JS
+										// }
+										console.log(response)
+									 }
+									 
+								 
+					  });
+				   });
+			  });
+			</script>
 			<script src="app.js"></script>
             <?php include 'templates/footer.php'; ?>
 			

@@ -2,6 +2,29 @@
  define("_VALID_PHP", true);
  require_once("../init.php");
 
+
+ if(isset($_POST['inspect_id'])){
+	
+	$inspect_id	=	sanitize($_POST['inspect_id']);		
+	$return_id		=	sanitize($_POST['return_id']);
+	$discard_id		=	sanitize($_POST['discard_id']);				
+	$inspect_price		= 	sanitize($_POST['inspect_price']);					
+	$return_price		= 	sanitize($_POST['return_price']);
+	$discard_price		= 	sanitize($_POST['discard_price']);
+	$id = $_POST['id'];
+	
+
+	//  query to update data 
+	
+	$db->query("UPDATE add_courier SET inspect_id='$inspect_id', return_id='$return_id', discard_id='$discard_id', inspect_price='$inspect_price', discard_price='$discard_price',  return_price='".$return_price."' WHERE id='$id'");
+
+	echo'<script type="text/javascript">
+        alert("<strong><center>The data was updated successfully</center></strong>");
+        window.location.href="#";
+        </script>';
+
+}
+
 if(isset($_POST['detail_description'])){
 	
 	$detail_description	=	sanitize($_POST['detail_description']);		

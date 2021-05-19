@@ -1,5 +1,5 @@
 
-	   <aside class="left-sidebar">
+	   <aside class="left-sidebar"  style="pointer-events : <?php echo $row->active =="n" ? "none" :  '';  ?>" >
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
@@ -246,8 +246,8 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../logout.php" aria-expanded="false"><i class="fa fa-power-off m-r-5 m-l-5"></i><span class="hide-menu"><?php echo $lang['wout'] ?></span></a></li>
                     </ul>
 					
-					<?php }else if($row->userlevel == 1){?>
-						<ul id="sidebarnav">
+					<?php }else if($row->userlevel == 1  ){?>
+						<ul id="sidebarnav"  >
 							<!-- User Profile-->
 							<li>
 								<!-- User Profile-->
@@ -292,16 +292,26 @@
 							
 							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="quote.php" aria-expanded="false"><i class="ti ti-stats-up" style="color:#6610f2"></i><span class="hide-menu"> <?php echo $lang['left39'] ?> </span></a></li>
 							
-							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="booking_list.php" aria-expanded="false"><i class="mdi mdi-cube-send"></i><span class="hide-menu"> <?php echo $lang['left40'] ?> </span></a></li>
 							
-							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="consolidated_list.php" aria-expanded="false"><i class="ti ti-gift"></i><span class="hide-menu"> <?php echo $lang['left41'] ?> </span></a></li>
 
-							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="services.php" aria-expanded="false"><i class="fa fa-tasks "></i><span class="hide-menu"> My Services </span></a></li>
+							<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-receipt"></i><span class="hide-menu">Buying Service</span></a>
+								<ul aria-expanded="false" class="collapse  first-level">
+									<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="booking_list.php" aria-expanded="false"><i class="mdi mdi-cube-send"></i><span class="hide-menu">Inbox</span></a></li>
+									<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="delivered_booking_list.php" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu">Sent</span></a></li>
+									<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="consolidated_list.php" aria-expanded="false"><i class="ti ti-gift"></i><span class="hide-menu"> <?php echo $lang['left41'] ?> </span></a></li>
+								</ul>
+                        	</li>
 
+							<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-dollar-sign"></i><span class="hide-menu">Selling Service</span></a>
+								<ul aria-expanded="false" class="collapse  first-level">
+									<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="booking_list.php" aria-expanded="false"><i class="mdi mdi-cube-send"></i><span class="hide-menu">Inbox</span></a></li>
+									<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="delivered_booking_list.php" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu">Sent</span></a></li>
+									<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="consolidated_list.php" aria-expanded="false"><i class="ti ti-gift"></i><span class="hide-menu"> <?php echo $lang['left41'] ?> </span></a></li>
+								</ul>
+                        	</li>
 							
 							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="history_quotes.php" aria-expanded="false"><i class="ti ti-archive"></i><span class="hide-menu"> <?php echo $lang['left42'] ?> </span></a></li>
 							
-							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="delivered_booking_list.php" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu"> <?php echo $lang['left705'] ?> </span></a></li>
 						
 							<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="user_client.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu"> <?php echo $lang['left43'] ?> </span></a></li>
 

@@ -131,16 +131,16 @@
                       Filter::$msgs['username'] = 'Your account has been banned.';
                       break;
 
-                  case 2:
-                      Filter::$msgs['username'] = 'Your account is not activated.';
-                      break;
+                //   case 2:
+                //       Filter::$msgs['username'] = 'Your account is not approved.';
+                //       break;
 
                   case 3:
                       Filter::$msgs['username'] = 'You must verify your email address.';
                       break;
               }
 		  }
-          if (empty(Filter::$msgs) && $status == 5) {
+          if (empty(Filter::$msgs) && ($status == 5 || $status==2)) {
               $row = $this->getUserInfo($username);
               $this->uid = $_SESSION['userid'] = $row->id;
               $this->username = $_SESSION['username'] = $row->username;
@@ -201,7 +201,7 @@
        */
       public function getCourier_list_booking()
       {
-		  $sql = "SELECT a.id, a.order_inv, a.r_name, a.c_driver, a.r_address, a.r_dest, a.r_city, a.r_curren, a.r_costtotal, a.r_description,  a.total_insurance, a.total_tax, a.payment_status, a.pay_mode, a.created, a.r_hour, a.status_courier, a.act_status, a.status_prealert, a.con_status, s.mod_style, s.color  FROM add_courier a, styles s  WHERE a.status_courier=s.mod_style AND a.username = '".$this->username."'   AND a.status_courier!='Delivered' ORDER BY a.id ASC";
+		  $sql = "SELECT a.id, a.order_inv,r_weight,v_weight,length,height,width, a.r_name, a.c_driver, a.r_address, a.r_dest, a.r_city, a.r_curren, a.r_costtotal, a.r_description,  a.total_insurance, a.total_tax, a.payment_status, a.pay_mode, a.created,a.inspect_id,a.return_id,a.discard_id, a.r_hour, a.status_courier, a.act_status, a.con_status, s.mod_style, s.color  FROM add_courier a, styles s  WHERE a.status_courier=s.mod_style AND a.username = '".$this->username."'   AND a.status_courier!='Delivered' ORDER BY a.id ASC";
           $row = self::$db->fetch_all($sql);
           
           return ($row) ? $row : 0;
@@ -1202,7 +1202,39 @@
 
 		  if (!$this->isValidEmail($_POST['email']))
 			  Filter::$msgs['email'] = 'The email address you entered is invalid.';
+
+		require_once(BASEPATH . "lib/class_mailer.php");
+
+		  if (sanitize($_POST['buying_service'])=='on' || sanitize($_POST['selling_service'])=='on' || sanitize($_POST['payment_service'])=='on' || sanitize($_POST['custom_service'])=='on' || sanitize($_POST['business_service'])=='on') {
+				if (empty($_POST['locker'])) {
+					$_POST['locker'] = generarCodigo(6);
+					$arow = Registry::get("Core")->getRowById("email_templates", 13);
+  
+					$abody = str_replace(array(
+						'[USERNAME]',
+						'[EMAIL]',
+						'[LOCKER]',
+						'[NAME]',
+						'[IP]'), array(
+						$data['username'],
+						$data['email'],
+						$data['locker'],
+						$data['fname'] . ' ' . $data['lname'],
+						$_SERVER['REMOTE_ADDR']), $arow->body);
+							
+					 $anewbody = cleanOut($abody);	
 	
+					$amailer = $mail->sendMail();
+					$amessage = Swift_Message::newInstance()
+							  ->setSubject($arow->subject)
+							  ->setTo(array(Registry::get("Core")->site_email => Registry::get("Core")->site_name))
+							  ->setFrom(array(Registry::get("Core")->site_email => Registry::get("Core")->site_name))
+							  ->setBody($anewbody, 'text/html');
+								
+					 $amailer->send($amessage);
+				}
+		  }
+
 
           if (!empty($_FILES['avatar']['name'])) {
               if (!preg_match("/(\.jpg|\.png)$/i", $_FILES['avatar']['name'])) {
@@ -1235,7 +1267,13 @@
 				  'code_phone' => sanitize($_POST['code_phone']),
 				  'phone' => sanitize($_POST['phone']),
 				  'address' => sanitize($_POST['address']),
-				  'gender' => sanitize($_POST['gender'])
+				  'gender' => sanitize($_POST['gender']),
+				  'locker' => sanitize($_POST['locker']),
+				  'buying_service' => sanitize($_POST['buying_service'])=='on' ? 1 :0,
+				  'selling_service' => sanitize($_POST['selling_service'])=='on' ? 1 :0,
+				  'business_service' => sanitize($_POST['business_service'])=='on' ? 1 :0,
+				  'custom_service' => sanitize($_POST['custom_service'])=='on' ? 1 :0,
+				  'payment_service' => sanitize($_POST['payment_service'])=='on' ? 1 :0,
 			  );
 
               // Procces Avatar
@@ -1271,6 +1309,7 @@
 				  $data['password'] = $userpass;
 			  
               self::$db->update(self::uTable, $data, "id='" . $this->uid . "'");
+
 
               (self::$db->affected()) ? Filter::msgOk('<span> Success! </span> You have successfully updated your profile.') : Filter::msgAlert('<span>Alert! </span> No process.');
           } else

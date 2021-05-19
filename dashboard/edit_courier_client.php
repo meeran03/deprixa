@@ -1,33 +1,11 @@
 <?php
-// *************************************************************************
-// *                                                                       *
-// * DEPRIXA -  Integrated Web system                                      *
-// * Copyright (c) JAOMWEB. All Rights Reserved                            *
-// *                                                                       *
-// *************************************************************************
-// *                                                                       *
-// * Email: osorio2380@yahoo.es                                            *
-// * Website: http://www.jaom.info                                         *
-// *                                                                       *
-// *************************************************************************
-// *                                                                       *
-// * This software is furnished under a license and may be used and copied *
-// * only  in  accordance  with  the  terms  of such  license and with the *
-// * inclusion of the above copyright notice.                              *
-// * If you Purchased from Codecanyon, Please read the full License from   *
-// * here- http://codecanyon.net/licenses/standard                         *
-// *                                                                       *
-// *************************************************************************
 
   define("_VALID_PHP", true);
   require_once("../init.php");
   
-  if (!$user->is_Admin())
-      redirect_to("login.php");
-	
+
 	$row = $user->getUserData();
 	$subs = $services->getBuySubServices();
-
 	$inspect;
 	$return;
 	$discard;
@@ -42,6 +20,7 @@
 			$return = $service;
 		}
 	}
+	
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -118,7 +97,10 @@
                 <!-- ============================================================== -->
 				
 				<?php switch(Filter::$action): case "ship": ?>
-				<?php  $roww = Core::getRowById(Core::cTable, Filter::$id);?>
+				<?php  $roww = Core::getRowById(Core::cTable, Filter::$id);
+				
+				$total = $roww->receive_price;
+				;?>
 				<!-- Row -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -127,10 +109,7 @@
                                 <div class="card-body">
 									<div class="row">
 										<div class="col-sm-12 col-lg-6">
-											<h4 class="card-title"><i class="mdi mdi-information-outline" style="color:#36bea6"></i> <?php echo $lang['add-title3'] ?></h4>
-										</div>
-										<div class="col-sm-12 col-lg-6">
-											<h4 class="card-title"><i class="mdi mdi-book-multiple" style="color:#36bea6"></i> <?php echo $lang['add-title13'] ?></h4>
+											<h4 class="card-title"><i class="mdi mdi-information-outline" style="color:#36bea6"></i>Package Information</h4>
 										</div>
 									</div>		
                                 </div>
@@ -206,128 +185,25 @@
 												</div>
 											</div>
 										</div>
+																			
 										
-										<div class="col-sm-12 col-lg-6">
+										<div class="col-sm-12 col-lg-12">
 											<div class="card-body">
-											<!-- Collapse buttons -->
-												<a class="btn waves-effect waves-light btn-xs btn-info btn-outline-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-align-left"></i> <?php echo $lang['left193'] ?></a>
 												<div class="row">
-													<div class="col-sm-12 col-md-6">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title4'] ?></label>
+
+                                                <div class="col-sm-12 col-md-6">
+														<label for="inputname" class="control-label col-form-label">Sender Name</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
 															</div>
-															<input type="text" class="form-control" id="searchnames"  name="r_name" value="<?php echo $roww->r_name;?>" readonly>
+															<input readonly type="text" class="form-control" id="searchnames"  name="r_name" value="<?php echo $roww->r_name;?>" readonly>
 														</div>
-													</div>
-													<div class="col-sm-12 col-md-6">
-														<div class="form-group">
-															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title5'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1">@</span>
-																</div>
-																<input type="email" class="form-control" id="mail" name="r_email"  value="<?php echo $roww->r_email;?>" readonly >
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- Collapsible element -->
-												<div class="collapse" id="collapseExample">
-													<div class="row">
-														<div class="col-sm-12 col-md-6">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title8'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-phone"></i></span>
-																</div>
-																<input type="number" class="form-control"  name="r_phone"  value="<?php echo $roww->r_phone;?>">
-															</div>
-														</div>
-														<div class="col-sm-12 col-md-6">
-															<label for="inputcontact" class="control-label col-form-label" style="color:#ff0000"><b><?php echo $lang['add-title9'] ?></b></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-screen-smartphone"></i></span>
-																</div>
-																<input type="number" class="form-control" id="phones" name="rc_phone" value="<?php echo $roww->rc_phone;?>">
-															</div>
-														</div>									                                     
-													</div>
-													<div class="row"> 
-														<div class="col-sm-12 col-md-4">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title10'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-location-pin"></i></span>
-																</div>
-																<input type="text" class="form-control" id="zones" name="r_dest" value="<?php echo $roww->r_dest;?>">
-															</div>
-														</div>  
-														<div class="col-sm-12 col-md-4">
-															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title11'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-map"></i></span>
-																</div>
-																<input type="text" class="form-control" id="citys" name="r_city" value="<?php echo $roww->r_city;?>">
-															</div>
-														</div>
-													
-														<div class="col-sm-12 col-md-4">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title12'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-pin"></i></span>
-																</div>
-																<input type="text" class="form-control" id="zips" name="r_postal" value="<?php echo $roww->r_postal;?>">
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- / Collapsible element -->
-
-												<div class="row">
-													<div class="col-sm-12 col-md-12">
-														<label for="inputlname" class="control-label col-form-label"><?php echo $lang['add-title6'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-btn">
-																<button class="btn btn-secondary get_map" type="submit">
-																	<?php echo $lang['left199'] ?>
-																</button>
-															</div>
-															<input type="text" class="form-control" id="search_location" value="<?php echo $roww->r_address;?>" placeholder="<?php echo $lang['left200'] ?>" required>
-															<input type="hidden" name="r_address" value="<?php echo $roww->r_address;?>" class="search_addr">
-															<input type="hidden" name="latitude" value="<?php echo $roww->latitude;?>" class="search_latitude">
-															<input type="hidden" name="longitude" value="<?php echo $roww->longitude;?>" class="search_longitude">
-															<input type="hidden" name="latitude_history" value="<?php echo $roww->latitude_history;?>" class="search_latitude">	
-															<input type="hidden" name="longitude_history" value="<?php echo $roww->longitude_history;?>" class="search_longitude">	
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="icon-direction"></i></span>
-															</div>
-														</div>
-													</div>		
-											
-													<div class="col-sm-12 col-md-12">
-														<div class="form-group">											
-															<!-- display google map -->
-															<div id="geomap" style="height: 200px"></div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										
-										<div class="col-sm-12 col-lg-6">
-											<div class="card-body">
-												<div class="row">
-								
+                                                </div>
 													<div class="col-sm-12 col-md-4">
 														<div class="form-group">
 															<label for="inputlname" class="control-label col-form-label"><?php echo $lang['add-title17'] ?> <i style="color:#ff0000" class="fas fa-boxes"></i></label>
-															<input class="custom-select col-12" name="package" list="browsers1" autocomplete="off" required="required" value="<?php if(isset($roww->package)){echo  $roww->package;}?>">
+															<input readonly class="custom-select col-12" name="package" list="browsers1" autocomplete="off" required="required" value="<?php if(isset($roww->package)){echo  $roww->package;}?>">
 															<datalist id="browsers1">
 																<?php 
 																$packrow = $core->getPack();
@@ -345,29 +221,18 @@
 															<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
 																	<div class="input-group-text"><i style="color:#ff0000" class="fa fa-calendar"></i></div>
 																</div>
-															<input type='text' class="form-control" id='datetimepicker1' name="collection_courier" placeholder="<?php echo $lang['edit-courier11'] ?>" value="<?php echo $roww->collection_courier;?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title16'] ?>" />
+															<input readonly type='text' class="form-control" id='datetimepicker1' name="collection_courier" placeholder="<?php echo $lang['edit-courier11'] ?>" value="<?php echo $roww->collection_courier;?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title16'] ?>" />
 														</div>
 													</div>
 													
-													<div class="col-sm-12 col-md-4">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title14'] ?></label>
-														<div class="input-group mb-3">
-															<select class="custom-select col-12" id="exampleFormControlSelect1" name="origin_off" value="<?php if(isset($roww->origin_off)){echo  $roww->origin_off;}?>">
-															<?php 
-															$office = $core->getOffices();
-															foreach ($office as $rows):?>
-																<option value="<?php echo $rows->name_off; ?>"><?php echo $rows->name_off; ?></option>
-															<?php endforeach;?>
-															</select>
-														</div>
-													</div>
+						
 													<!--/span-->
 												</div>
 												<div class="row">
 													<div class="col-sm-12 col-md-4">
 														<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title18'] ?></label>
 														<div class="input-group">
-															<input class="custom-select col-12" name="courier" list="browsers2" autocomplete="off" required="required" value="<?php if(isset($roww->courier)){echo  $roww->courier;}?>">
+															<input readonly class="custom-select col-12" name="courier" list="browsers2" autocomplete="off" required="required" value="<?php if(isset($roww->courier)){echo  $roww->courier;}?>">
 															<datalist id="browsers2">
 																<?php 
 																$courierrow = $core->getCouriercom();
@@ -378,61 +243,20 @@
 														</div>
 													</div>	
 													<!--/span-->
-													<?php $delitimerow = $core->getDelitime();?>
-													<div class="col-sm-12 col-md-4">
-														<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title20'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="icon-clock"></i></span>
-															</div>
-															<input type="text" class="form-control" name="deli_time" value="<?php if(isset($roww->deli_time)){echo  $roww->deli_time;}?>" placeholder="--<?php echo $lang['left207'] ?>--" list="browsersstatus" autocomplete="off" required="required">
-															<datalist id="browsersstatus">
-																<?php foreach ($delitimerow as $row):?>
-																<option value="<?php echo $row->delitime; ?>"><?php echo $row->delitime; ?></option>
-																<?php endforeach;?>
-															</datalist>	
-														</div>
-													</div>
+											
 													
-													<div class="col-sm-12 col-md-4">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['langs_035'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-prepend">
-																<span class="input-group-text" style="color:#ff0000"><i class="fas fa-car"></i></span>
-															</div>
-															<input class="custom-select col-12" id="exampleFormControlSelect1" name="c_driver" list="browser" autocomplete="off" value="<?php if(isset($roww->c_driver)){echo  $roww->c_driver;}?>">
-															<datalist id="browser">
-																<?php 
-																$driverrow = $user->getDrivers();
-																foreach ($driverrow as $rows):?>
-																<option value="<?php echo $rows->username; ?>"><?php echo $rows->fname; ?> <?php echo $rows->lname; ?></option>
-																<?php endforeach;?>
-															</datalist>			
-														</div>
-													</div>	
+												
 													<!--/span-->
 												</div>
 												
 												<div class="row">
-													<div class="col-sm-12 col-md-6">
-														<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title22'] ?></label>
-														<div class="input-group mb-3">
-															<input class="custom-select col-12" name="service_options" value="<?php if(isset($roww->service_options)){echo  $roww->service_options;}?>" list="browsers3" autocomplete="off" required="required">
-															<datalist id="browsers3">
-																<?php 
-																$moderow = $core->getShipmode();
-																foreach ($moderow as $rows):?>
-																<option value="<?php echo $rows->ship_mode; ?>"><?php echo $rows->ship_mode; ?></option>
-																<?php endforeach;?>
-															</datalist>	
-														</div>
-													</div>
+												
 													<!--/span-->
 	
 													<div class="col-sm-12 col-md-6">
 														<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title19'] ?> <i style="color:#ff0000" class="fas fa-shipping-fast"></i></label>
 														<div class="input-group">
-															<input class="custom-select col-12" name="status_courier" value="<?php if(isset($roww->status_courier)){echo  $roww->status_courier;}?>" list="browserstatus" autocomplete="off" required="required">
+															<input class="custom-select col-12" readonly  name="status_courier" value="<?php if(isset($roww->status_courier)){echo  $roww->status_courier;}?>" list="browserstatus" autocomplete="off" required="required">
 															<datalist id="browserstatus">
 																<?php 
 																$statusrow = $core->getStatus();
@@ -459,7 +283,7 @@
 													<div class="col-sm-12 col-md-6">
 														<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title27'] ?></label>
 														<div class="input-group">
-															<input class="form-control" name="itemcat" value="<?php if(isset($roww->itemcat)){echo  $roww->itemcat;}?>" list="browsers4" autocomplete="off" required="required">
+															<input readonly class="form-control" name="itemcat" value="<?php if(isset($roww->itemcat)){echo  $roww->itemcat;}?>" list="browsers4" autocomplete="off" required="required">
 															<datalist id="browsers4">
 																<?php 
 																$itemrow = $core->getItem();
@@ -472,14 +296,14 @@
 													<div class="col-sm-12 col-md-6">
 														<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title28'] ?></label>
 														<div class="input-group">
-															<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title30'] ?>" class="form-control" name="r_qnty" value="<?php echo $roww->r_qnty;?>" readonly>
+															<input readonly type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title30'] ?>" class="form-control" name="r_qnty" value="<?php echo $roww->r_qnty;?>" readonly>
 														</div>
 													</div>
 													
 													<div class="col-sm-12 col-md-12">
 														<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title32'] ?></label>
 														<div class="input-group">
-															 <textarea class="form-control" rows="2" name="r_description" placeholder="<?php echo $lang['add-title33'] ?>"><?php if(isset($roww->r_description)){echo  $roww->r_description;}?></textarea>
+															 <textarea readonly class="form-control" rows="2" name="r_description" placeholder="<?php echo $lang['add-title33'] ?>"><?php if(isset($roww->r_description)){echo  $roww->r_description;}?></textarea>
 														</div>
 													</div>
 												</div>	
@@ -524,7 +348,7 @@
 
 																		<span class="col-4" >Inspection</span>																	
 																		<span class="col-4" > 
-																			<span class="btn btn-primary"><?php echo $roww->inspect_id == $inspect->id ? "AVAILED" : "NOT AVAILED" ; ?></span>
+																			<span class="btn btn-primary"><?php echo $roww->inspect_id == $inspect->id ? "AVAILED" : "NOT AVAILED" ; ?></span>																	
 																		</span>
 
 																	<?php 
@@ -532,7 +356,7 @@
 																	if ($roww->inspect_id == $inspect->id) {
 																		if ($roww->inspect_upload == "") {
 																		echo   '<span class="col-4" > 
-																					<span class="btn btn-secondary">Upload</span>																	
+																					<span class="btn btn-primary">Waiting For Upload</span>																	
 																				</span>';
 																		} 
 																		else {
@@ -557,7 +381,7 @@
 																		if ($roww->return_id == $return->id) {
 																			if ($roww->return_upload == "") {
 																			echo   '<span class="col-4" > 
-																						<span class="btn btn-secondary">Upload</span>																	
+																						<span class="btn btn-primary">Waiting For Upload</span>																	
 																					</span>';
 																			} 
 																			else {
@@ -581,7 +405,7 @@
 																		if ($roww->discard_id == $discard->id) {
 																			if ($roww->discard_upload == "") {
 																			echo   '<span class="col-4" > 
-																						<span class="btn btn-secondary">Upload</span>																	
+																						<span class="btn btn-primary">Waiting For Upload</span>																	
 																					</span>';
 																			} 
 																			else { 
@@ -625,7 +449,7 @@
 																
 
 																	<?php 
-																		if ($roww->inspect_id == $inspect->id) {
+																		if ($roww->inspect_id != "") {
 																			$total += $roww->inspect_price;
 																		echo   '<span class="col-4" >Inspection</span>																	
 																				<span class="col-4" > 
@@ -643,7 +467,7 @@
 																	
 
 																	<?php 
-																		if ($roww->return_id == $return->id) {
+																		if ($roww->return_id != "") {
 																			$total += $roww->return_price;
 																		
 																		echo   '<span class="col-4" >Return</span>																	
@@ -850,28 +674,44 @@
 									</div>
 								</div>
 								<hr>
-
-								<div class="col-sm-12 col-lg-12">
-									<div class="card-body">
-										<div class="form-actions">
-											<div class="card-body">
-												<div class="text-right">
-																									
-													<button type="submit" name="dosubmit" class="btn btn-success"> <i class="icon-plane"></i>&nbsp; <?php echo $lang['left248'] ?></button>
-													<a href="index.php" class="btn btn-dark"> <?php echo $lang['add-title47'] ?></a> 
-												</div>
-											</div>
-										</div>
-										<input name="id" type="hidden" value="<?php echo Filter::$id;?>" />
-									</div>
-								</div>								
+								
+								
                             </form>
-
                     </div>
                 </div>
 
                 <!-- End row -->
+				<form class="form-horizontal" name="save_invoice" id="save_invoice">
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel1"><?php echo $lang['left223'] ?></h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<div class="col-sm-12 col-md-12">
+											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
+											<div class="input-group mb-3">
+												<div id="editor">
+													<textarea name="package_invoice" id="summernote" style="margin-top: 60px;" placeholder="Write a text.."></textarea>
+													<div class="label2 label-important"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
+										<button type="submit" class="btn btn-default">Upload</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
 				
+					<!-- End row -->
+				</form>
 				<!-- Modal edit detail courier -->	
 				<div class="panel-body">
 					<div class="modal fade bs-example-modal-lg" id="edit_courier" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
@@ -999,6 +839,12 @@
 			  });
 			</script>
 			
+			<script>
+				$(document).ready(function() {
+					$('#summernote').summernote();
+				});
+			</script>
+
 			<script>
 				function calcular() {
 						var total_result = 0;

@@ -1,23 +1,5 @@
 <?php
-// *************************************************************************
-// *                                                                       *
-// * DEPRIXA -  Integrated Web system                                      *
-// * Copyright (c) JAOMWEB. All Rights Reserved                            *
-// *                                                                       *
-// *************************************************************************
-// *                                                                       *
-// * Email: osorio2380@yahoo.es                                            *
-// * Website: http://www.jaom.info                                         *
-// *                                                                       *
-// *************************************************************************
-// *                                                                       *
-// * This software is furnished under a license and may be used and copied *
-// * only  in  accordance  with  the  terms  of such  license and with the *
-// * inclusion of the above copyright notice.                              *
-// * If you Purchased from Codecanyon, Please read the full License from   *
-// * here- http://codecanyon.net/licenses/standard                         *
-// *                                                                       *
-// *************************************************************************
+
 
 
 $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
@@ -104,7 +86,7 @@ $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['a
 		</td>		
 	</tr>
 	
-	<tr>
+	<tr class="card-hover hover" >
 		<td colspan='12'>
 			<div class="row">
 				<div class="col-lg-12 col-xl-4">
@@ -163,15 +145,7 @@ $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['a
 					<div class="card card-hover">
 						<div class="card-body">						
 							<div class="row">
-								<div class="col-12 col-sm-4 col-md-4">										
-									<label for="inputcom" class="control-label col-form-label"><?php echo $lang['add-title24'] ?></label>
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="basic-addon1" style="color:#ff0000"><?php echo $prefix;?></span>
-										</div>	
-										<input type="text" class="form-control" name="tracking" value="<?php echo $track;?>" readonly>
-									</div>
-								</div>
+
 								
 								<div class="col-sm-12 col-md-2">
 									<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['left237'] ?></label>
@@ -183,49 +157,13 @@ $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['a
 									</div>
 								</div>
 								
-								<div class="col-sm-12 col-md-2">
-									<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['left238'] ?></label>
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="basic-addon1"><i class="" style="color:#36bea6">$</i></span>
-										</div>
-										<input type="text" class="form-control" name="c_handling" id="manejo" onkeyup="calcular()" value="<?php echo $core->c_handling;?>">
-									</div>
-								</div>
-								<div class="col-sm-12 col-md-2">
-									<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title25'] ?></label>
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent" style="color:#36bea6"></i></span>
-										</div>
-										<input type="text" class="form-control"  name="r_tax" id="impuesto" onkeyup="calcular()" value="<?php echo $core->tax;?>">
-									</div>
-								</div>
-								<div class="col-sm-12 col-md-2">
-									<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title26'] ?></label>
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="basic-addon1"><i class="fas fa-percent" style="color:#36bea6"></i></span>
-										</div>
-										<input type="text" class="form-control"  name="r_insurance" id="porcentaje_seguro" onkeyup="calcular()" value="<?php echo $core->insurance;?>">											
-									</div>
-								</div>
+
 							
 								<div class="col-sm-12 col-md-2" style="display:none">
 									<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title43'] ?></label>
 									<input class="form-control" name="r_curren" value="<?php echo $core->currency; ?>" >
 								</div>
-								<div class="col-sm-12 col-md-6">
-									<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title23'] ?> <i style="color:#ff0000" class="fas fa-donate"></i></label>
-									<div class="input-group mb-3">
-										<input class="custom-select col-12" name="pay_mode" placeholder="--<?php echo $lang['left243'] ?>--" list="browsersss" autocomplete="off" required="required">
-										<datalist id="browsersss">
-											<?php foreach ($payrow as $row):?>
-											<option value="<?php echo $row->met_payment; ?>"><?php echo $row->met_payment; ?></option>
-											<?php endforeach;?>
-										</datalist>
-									</div>
-								</div>
+
 
 								<div class="col-sm-12 col-md-3">
 									<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['left239'] ?> <b><i style="color:#FF0000" class="ti-help-alt" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['left244'] ?>  <?php echo $core->insurance;?> <?php echo $lang['add-title42'] ?>"></i></b></label>
@@ -264,6 +202,8 @@ $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['a
 			</div>
 		</td>
 	</tr>
+
+
 	<script>
 		function calcular() {
 				var total_result = 0;

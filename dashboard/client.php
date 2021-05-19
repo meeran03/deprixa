@@ -34,7 +34,7 @@
   redirect_to("login.php");
   
 	$row = $user->getUserData();
-    if ($row->locker == "") {
+    if (($row->active == "n")) {
         redirect_to("user_client.php");
     }
 

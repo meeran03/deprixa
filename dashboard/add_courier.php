@@ -8,11 +8,15 @@
 	
 	$row = $user->getUserData();
 	$roww = $user->getUserData();
+	$ser = $services->getAllServices();
+	$subs = $services->getBuySubServices();
+	
 	
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
+<?php $track = $courier->order_track();?>
+				<?php $prefix = $courier->order_prefix();?>
 
 <head>
     <meta charset="utf-8">
@@ -39,6 +43,11 @@
 	 });
 	 </script>
 
+<style>
+.customTable td {
+  text-align: center;
+}		
+</style>
 </head>
 
 <body>
@@ -172,168 +181,52 @@
 											</div>
 										</div>
 										
-										<div class="col-12 col-sm-12 col-md-12 card">
-											<div class="card-body">
-											
-											<h4 class="card-title"><i class="mdi mdi-information-outline" style="color:#36bea6"></i> <?php echo $lang['add-title3'] ?></h4>
-											<br>
-											<!-- Collapse buttons -->
-											<a class="btn waves-effect waves-light btn-xs btn-info btn-outline-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-align-left"></i> <?php echo $lang['left193'] ?></a>
-												
-												<div class="row">
-													<div class="col-12 col-sm-6 col-md-6">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title4'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
-															</div>
-															<input type="text" class="form-control" id="searchnames"  name="r_name" autofocus placeholder="<?php echo $lang['left194'] ?>" autocomplete="off" required>
-														</div>
-													</div>
-													<div class="col-12 col-sm-6 col-md-6">
-														<div class="form-group">
-															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title5'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1">@</span>
-																</div>
-																<input type="email" class="form-control" id="mail" name="r_email"  placeholder="<?php echo $lang['left195'] ?>" required>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- Collapsible element -->
-												<div class="collapse" id="collapseExample">
-													<div class="row">
-														<div class="col-12 col-sm-6 col-md-6">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title8'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-phone"></i></span>
-																</div>
-																<input type="number" class="form-control"  name="r_phone"  placeholder="(+1) ##-#######">
-															</div>
-														</div>
-														<div class="col-12 col-sm-6 col-md-6">
-															<label for="inputcontact" class="control-label col-form-label" style="color:#ff0000"><b><?php echo $lang['add-title9'] ?></b></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-screen-smartphone"></i></span>
-																</div>
-																<input type="number" class="form-control" id="phones" name="rc_phone" placeholder="(+1) ## ######">
-															</div>
-														</div>									                                     
-													</div>
-													<div class="row"> 
-														<div class="col-12 col-sm-4 col-md-4">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title10'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-location-pin"></i></span>
-																</div>
-																<input type="text" class="form-control" id="zones" name="r_dest" placeholder="<?php echo $lang['left196'] ?>" required="required">
-															</div>
-														</div>  
-														<div class="col-12 col-sm-4 col-md-4">
-															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title11'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-map"></i></span>
-																</div>
-																<input type="text" class="form-control" id="citys" name="r_city" placeholder="<?php echo $lang['left197'] ?>">
-															</div>
-														</div>
-													
-														<div class="col-12 col-sm-4 col-md-4">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title12'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-pin"></i></span>
-																</div>
-																<input type="text" class="form-control" id="zips" name="r_postal" placeholder="<?php echo $lang['left198'] ?>">
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- / Collapsible element -->
+									
 
-												<div class="row">
-													<div class="col-12 col-sm-12 col-md-12">
-														<label for="inputlname" class="control-label col-form-label"><?php echo $lang['add-title6'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-btn">
-																<button class="btn btn-secondary get_map" type="submit">
-																	<?php echo $lang['left199'] ?>
-																</button>
-															</div>
-															<input type="text" class="form-control" id="search_location" placeholder="<?php echo $lang['left200'] ?>" required>
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="icon-direction"></i></span>
-															</div>
-														</div>
-													</div>		
-											
-													<div class="col-12 col-sm-12 col-md-12">
-														<div class="form-group">											
-															<!-- display google map -->
-															<div id="geomap" style="height: 100px"></div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										
+
+										<!-- Till here -->
 										
 										<div class="col-12 col-sm-12 col-md-12 card">
 											<div class="card-body">
 											<h4 class="card-title"><i class="mdi mdi-book-multiple" style="color:#36bea6"></i> <?php echo $lang['add-title13'] ?></h4>
 											<br>
 											<!-- Collapse buttons -->
-											<a class="btn waves-effect waves-light btn-xs btn-info btn-outline-primary" data-toggle="collapse" href="#collapseExamples" aria-expanded="false" aria-controls="collapseExamples"><i class="fa fa-align-left"></i> <?php echo $lang['left193'] ?></a>
 											
-												<div class="row">
-													<div class="col-12 col-sm-6 col-md-6">
-														<div class="form-group">
-															<label for="inputlname" class="control-label col-form-label"><?php echo $lang['left201'] ?> <i style="color:#ff0000" class="fas fas fa-building"></i></label>
-															<input class="custom-select col-12" name="agency" placeholder="--<?php echo $lang['left202'] ?>--" list="browsersag" autocomplete="off" required="required">
-															<datalist id="browsersag">
-																<?php foreach ($agencyrow as $row):?>
-																<option value="<?php echo $row->name_branch; ?>"><?php echo $row->name_branch; ?></option>
-																<?php endforeach;?>
-															</datalist>	
-														</div>
-													</div>
-													
-													<?php if($roww->userlevel == 9){?>
-													<div class="col-12 col-sm-6 col-md-6">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title14'] ?></label>
+	 										<div class="row">
+												<div class="col-12 col-sm-4 col-md-4">
+												<div class="form-group">
+														<label for="inputname" class="control-label col-form-label">Sender Name</label>
 														<div class="input-group mb-3">
-															<select class="custom-select col-12" id="exampleFormControlSelect1" name="origin_off" >
-															<?php foreach ($office as $row):?>
-																<option value="<?php echo $row->name_off; ?>"><?php echo $row->name_off; ?></option>
-															<?php endforeach;?>
-															</select>
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
+															</div>
+															<input type="text" class="form-control" id="searchnames"  name="r_name" autofocus placeholder="Sender Name" autocomplete="off" required>
 														</div>
 													</div>
-													<?php }else if($roww->userlevel == 2){?>
-													<div class="col-12 col-sm-6 col-md-6">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title14'] ?></label>
-														<div class="input-group mb-3">
-															<input class="form-control" name="origin_off" value="<?php echo $user->name_off; ?>" readonly>
-														</div>
-													</div>
-													<?php } ?>	
 												</div>
-												
-												<!-- Collapsible element -->
-												<div class="collapse" id="collapseExamples">
-													<div class="row">
-														<div class="col-12 col-sm-4 col-md-4" style="display:none">
-															<div class="form-group">
-																<label for="inputname" class="control-label col-form-label">Staff Role*</label>
-																<input type="text" class="form-control" name="level" value="<?php echo $user->username; ?>" placeholder="Staff Role" >
+
+												<div class="col-12 col-sm-4 col-md-4">
+															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title15'] ?></i></label>
+															<div class="input-group">
+																<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+																		<div class="input-group-text"><i style="color:#ff0000" class="fa fa-calendar"></i></div>
+																	</div>
+																<input type='text' class="form-control" id='datetimepicker1' name="collection_courier" placeholder="--<?php echo $lang['left206'] ?>--" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title16'] ?>" />
 															</div>
 														</div>
+
+													<div class="col-12 col-sm-4 col-md-4">										
+														<label for="inputcom" class="control-label col-form-label"><?php echo $lang['add-title24'] ?></label>
+														<div class="input-group mb-3">
+															<div class="input-group-prepend">
+																<span class="input-group-text" id="basic-addon1" style="color:#ff0000"><?php echo $prefix;?></span>
+															</div>	
+															<input type="text" class="form-control" name="tracking" value="<?php echo $track;?>" >
+														</div>
+													</div>
+											</div>
+												<!-- Collapsible element -->
+													<div class="row">
 
 														<div class="col-12 col-sm-4 col-md-4">
 															<div class="form-group">
@@ -358,68 +251,8 @@
 																</datalist>
 															</div>
 														</div>
+										
 														<div class="col-12 col-sm-4 col-md-4">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title22'] ?></label>
-															<div class="input-group mb-3">
-																<input class="custom-select col-12" name="service_options" placeholder="--<?php echo $lang['left205'] ?>--" list="browsers3" autocomplete="off" required="required">
-																<datalist id="browsers3">
-																	<?php foreach ($moderow as $row):?>
-																	<option value="<?php echo $row->ship_mode; ?>"><?php echo $row->ship_mode; ?></option>
-																	<?php endforeach;?>
-																</datalist>	
-															</div>
-														</div>
-														
-														<!--/span-->
-													</div>
-													<div class="row">
-														<div class="col-12 col-sm-6 col-md-6">
-															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title15'] ?></i></label>
-															<div class="input-group">
-																<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-																		<div class="input-group-text"><i style="color:#ff0000" class="fa fa-calendar"></i></div>
-																	</div>
-																<input type='text' class="form-control" id='datetimepicker1' name="collection_courier" placeholder="--<?php echo $lang['left206'] ?>--" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title16'] ?>" />
-															</div>
-														</div>
-														<!--/span-->
-														
-														<div class="col-12 col-sm-6 col-md-6">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title20'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-clock"></i></span>
-																</div>
-																<input type="text" class="form-control" name="deli_time" placeholder="--<?php echo $lang['left207'] ?>--" list="browsersstatus" autocomplete="off" required="required">
-																<datalist id="browsersstatus">
-																	<?php foreach ($delitimerow as $row):?>
-																	<option value="<?php echo $row->delitime; ?>"><?php echo $row->delitime; ?></option>
-																	<?php endforeach;?>
-																</datalist>
-															</div>
-														</div>
-														<!--/span-->
-													</div>
-													
-													<div class="row">
-														<div class="col-12 col-sm-6 col-md-6">
-															<label for="inputname" class="control-label col-form-label"><?php echo $lang['left208'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" style="color:#ff0000"><i class="fas fa-car"></i></span>
-																</div>
-																<input class="custom-select col-12" id="exampleFormControlSelect1" name="c_driver" list="browser" autocomplete="off" placeholder="--<?php echo $lang['left209'] ?>--">
-																<datalist id="browser">
-																	<?php foreach ($driverrow as $row):?>
-																	<option value="<?php echo $row->username; ?>"><?php echo $row->fname; ?> <?php echo $row->lname; ?></option>
-																	<?php endforeach;?>
-																</datalist>
-															</div>
-														</div>	
-														
-														<!--/span-->
-		
-														<div class="col-12 col-sm-6 col-md-6">
 															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title19'] ?> <i style="color:#ff0000" class="fas fa-shipping-fast"></i></label>
 															<div class="input-group">
 																<input class="custom-select col-12" name="status_courier" placeholder="--<?php echo $lang['left210'] ?>--" list="browserstatus" autocomplete="off" required="required">
@@ -438,11 +271,20 @@
 																	<?php endforeach;?>
 																</datalist>
 															</div>
-														</div>	
+														</div>
+														<!--/span-->
+													</div>
+							
+													
+													<div class="row">
+
+														
+														<!--/span-->
+		
+														
 														<!--/span-->
 													</div>
 													<!--/row-->
-												</div>
 											</div>
 											<hr>
 											<div class="form-body">
@@ -476,23 +318,36 @@
 								
 									<div class="col-12 col-sm-12 col-md-12 card">
 										<div class="card-body">
-										<h4 class="card-title"><i class="fas fas fa-boxes" style="color:#36bea6"></i> <?php echo $lang['left212'] ?></h4>
+										<h4 class="card-title"><i class="fas fas fa-boxes" style="color:#36bea6"></i>Volumetric Measures</h4>
 											<div class="table-responsive">
 												<table id="zero_config" class="table table-striped">
 													<thead class="bg-darks border-0 text-white">
 														<tr>
-															<th style="width: 30%;" align='center'><b><?php echo $lang['left213'] ?></b></th>
-															<th class='text-center'><b><?php echo $lang['left214'] ?></b></th>
 															<th class='text-center'><b><?php echo $lang['left215'] ?></b></th>
 															<th class='text-center'><b><?php echo $lang['left216'] ?></b></th>
 															<th class='text-center'><b><?php echo $lang['left217'] ?></b></th>
 															<th class='text-center'><b><?php echo $lang['left218'] ?></b></th>
 															<th style="width: 10%;" class='text-center'><b><?php echo $lang['left219'] ?></b></th>
-															<th class='text-center'></th>
 														</tr>
 													</thead>
-													<tbody class='items'>
-														
+													<tbody >
+														<tr>
+																<td style="width:10%"  class='text-center'>
+																		<input id="r_weight" name="r_weight" style="width:80%" type="text" placeholder="Enter Weight" >
+																</td>
+																<td style="width:10%"  class='text-center'>
+																		<input onchange="calculateWeight()" id="length" name="length" style="width:80%" type="text" placeholder="Enter Length" >
+																</td>
+																<td style="width:10%"  class='text-center'>
+																		<input onchange="calculateWeight()" id="width" name="width" style="width:80%" type="text" placeholder="Enter Width" >
+																</td>
+																<td style="width:10%"  class='text-center'>
+																		<input onchange="calculateWeight()" id="height" name="height" style="width:80%" type="text" placeholder="Enter Height" >
+																</td>
+																<td style="width: 10%;" class='text-center'>
+																		<input id="v_weight" name="v_weight" type="text" placeholder="Enter Volumetric Weight" >
+																</td>
+														</tr>
 													</tbody>
 												</table>
 											</div>											
@@ -532,7 +387,9 @@
 												</div>
 											</div>
 										</div>
-									</div>	
+									</div>
+									
+										
 								</div>	
                             </form>
 						</div>
@@ -610,6 +467,42 @@
 					<!-- End row -->
 				</div>
 				</form>
+
+				<form class="form-horizontal" name="save_invoice" id="save_invoice">
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel1"><?php echo $lang['left223'] ?></h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<div class="col-sm-12 col-md-12">
+											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
+											<div class="input-group mb-3">
+												<div id="editor">
+													<textarea name="package_invoice" id="summernote" style="margin-top: 60px;" placeholder="Write a text.."></textarea>
+													<div class="label2 label-important"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
+										<button type="submit" class="btn btn-default">Upload</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+				
+					<!-- End row -->
+				</div>
+		</form>
+
+
+
             </div>
 			<?php echo Core::doForm("processCourier");?>
 			
@@ -618,6 +511,17 @@
 			<script src="dist/js/alert_top.js"></script>	
 			
 			<script type="text/javascript">
+
+			function calculateWeight() {
+				var length = $("#length").val();
+				var width = $("#width").val();
+				var height = $("#height").val();
+
+				console.log(length)
+
+				var weight =  (length*width*height)/5000;
+				document.getElementById("v_weight").value = weight;
+			}
 
 				function show_items(){
 					var parametros={"action":"ajax"};
@@ -670,6 +574,11 @@
 						
 			</script>
 			
+			<script>
+				$(document).ready(function() {
+					$('#summernote').summernote();
+				});
+			</script>
 			
 			
 			<?php include 'templates/footer_add_courier.php'; ?>

@@ -550,33 +550,34 @@
 				  Filter::$msgs['tracking'] = 'The tracking number entered is already in use.. <b>"'.$row->prefix.''.$_POST['tracking'].'"</b>';
 		  }
 			  
-		  if (empty($_POST['r_address']))
-			  Filter::$msgs['r_address'] = 'Please Enter Address'; 
+		//   if (empty($_POST['r_address']))
+		// 	  Filter::$msgs['r_address'] = 'Please Enter Address'; 
 
-		  if (empty($_POST['r_email']))
-			  Filter::$msgs['r_email'] = 'Please Enter Valid Email Address';
-		  if (!$this->isValidEmail($_POST['r_email']))
-			  Filter::$msgs['r_email'] = 'Entered Email Address Is Not Valid.';			  	  
-		  if (empty($_POST['rc_phone']))
-			  Filter::$msgs['rc_phone'] = 'Please Enter Cell Phone';
-		  if (empty($_POST['r_dest']))
-			  Filter::$msgs['r_dest'] = 'Please Enter Destination';
-		  if (empty($_POST['r_city']))
-			  Filter::$msgs['r_city'] = 'Please Enter City';
-		  if (empty($_POST['r_postal']))
-			  Filter::$msgs['r_postal'] = 'Please Enter Postal Code';	
-		  if (empty($_POST['agency']))
-			  Filter::$msgs['agency'] = 'Please Enter Agency';
+		//   if (empty($_POST['r_email']))
+		// 	  Filter::$msgs['r_email'] = 'Please Enter Valid Email Address';
+		//   if (!$this->isValidEmail($_POST['r_email']))
+		// 	  Filter::$msgs['r_email'] = 'Entered Email Address Is Not Valid.';			  	  
+		//   if (empty($_POST['rc_phone']))
+		// 	  Filter::$msgs['rc_phone'] = 'Please Enter Cell Phone';
+		//   if (empty($_POST['r_dest']))
+		// 	  Filter::$msgs['r_dest'] = 'Please Enter Destination';
+		//   if (empty($_POST['r_city']))
+		// 	  Filter::$msgs['r_city'] = 'Please Enter City';
+		//   if (empty($_POST['r_postal']))
+		// 	  Filter::$msgs['r_postal'] = 'Please Enter Postal Code';	
+		//   if (empty($_POST['agency']))
+		// 	  Filter::$msgs['agency'] = 'Please Enter Agency';
 		  if (empty($_POST['collection_courier']))
 			  Filter::$msgs['collection_courier'] = 'Please Enter Date Collection';
+			$_POST['r_qnty']=1;
 		  if (empty($_POST['r_qnty']))
 			  Filter::$msgs['r_qnty'] = 'Please Enter Quantity';
 		  if (empty($_POST['r_weight']))
 			  Filter::$msgs['r_weight'] = 'Please Enter Weight Package';
 		  if (empty($_POST['r_description']))
 			  Filter::$msgs['r_description'] = 'Please Enter Description Package';
-		  if (empty($_POST['r_custom']))
-			  Filter::$msgs['r_custom'] = 'Please Enter Custom Value';
+		//   if (empty($_POST['r_custom']))
+		// 	  Filter::$msgs['r_custom'] = 'Please Enter Custom Value';
 
 		  
 		  if (empty(Filter::$msgs)) {
@@ -629,7 +630,10 @@
 				  'l_price' => sanitize($_POST['l_price']),
 				  'c_driver' => sanitize($_POST['c_driver']),
 				  'level' => sanitize($_POST['level']),
-				  'status_courier' => sanitize($_POST['status_courier'])
+				  'status_courier' => sanitize($_POST['status_courier']),
+				  'length' => sanitize($_POST['length']),
+				  'width' => sanitize($_POST['width']),
+				  'height' => sanitize($_POST['height']),
 			  );
 
               if (!Filter::$id)

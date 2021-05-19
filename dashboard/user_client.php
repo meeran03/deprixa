@@ -123,9 +123,30 @@
 								<center class="m-t-30"> <img src="../thumbmaker.php?src=<?php echo UPLOADURL;?><?php echo ($row->avatar) ? $row->avatar : "blank.png";?>&amp;w=<?php echo $core->thumb_w;?>&amp;h=<?php echo $core->thumb_h;?>&amp;s=1&amp;a=t1" class="rounded-circle" width="150" />
 									<h4 class="card-title m-t-10"><?php echo $row->fname;?> <?php echo $row->lname;?></h4>
 									<h6 class="card-subtitle"><span><?php echo $lang['user_manage2'] ?> <i class="icon-double-angle-right"></i></span>  <div class="badge badge-pill badge-light font-16"><span class="ti-user text-warning"></span>	<?php echo $user->username;?></div></h6>
+									<h6 class="card-subtitle"><span>User Locker<i class="icon-double-angle-right"></i></span>  <div class="badge badge-pill badge-light font-16"><span class="ti-user text-warning"></span>	<?php echo $user->locker;?></div></h6>
 								</center>
 							</div>
 							<div><hr> </div>
+							<div class="card-body">
+								<div class="col-xs-12 ">
+									<p class="lead"><b>Virtual Address</b></p>
+								</div>
+
+								<div class="col-xs-12" style="font-size:14px;">
+									<div class="lead sub-title"><b></b></div>
+									<small class="text-muted"><?php echo $lang['left1028'] ?></small>
+									<h6><?php echo $row->fname;?> <?php echo $row->lname;?></h6>
+									<small class="text-muted"><?php echo $lang['left1002'] ?></small> <h6><?php echo $core->locker_address;?></h6>
+									<small class="text-muted"><?php echo $lang['left1003'] ?></small> <h6><?php echo $row->locker;?></h6>
+									<small class="text-muted"><?php echo $lang['left1004'] ?></small> <h6><?php echo $core->c_country;?></h6>
+									<small class="text-muted"><?php echo $lang['left1005'] ?></small> <h6><?php echo $core->c_city;?></h6>
+									<small class="text-muted"><?php echo $lang['left1006'] ?></small> <h6><?php echo $core->c_postal;?></h6>
+									<small class="text-muted"><?php echo $lang['left1007'] ?></small> <h6><?php echo $core->c_phone;?></h6>
+								</div>
+							</div>
+
+							<div class="col-xs-12 pd0"><hr></div>
+
 							<div class="card-body"> 
 								<small class="text-muted"><?php echo $lang['left1061'] ?> </small>
 								<h6><?php echo $row->email;?></h6> 
@@ -144,24 +165,6 @@
 									<span><?php echo $lang['user-account19'] ?></span>
 								</div>
 							</div>
-							<div class="col-xs-12 pd0"><hr></div>
-							<div class="card-body">
-								<div class="col-xs-12 ">
-									<p class="lead"><b><?php echo $lang['left1001'] ?></b></p>
-								</div>
-
-								<div class="col-xs-12" style="font-size:14px;">
-									<div class="lead sub-title"><b></b></div>
-									<small class="text-muted"><?php echo $lang['left1028'] ?></small>
-									<h6><?php echo $row->fname;?> <?php echo $row->lname;?></h6>
-									<small class="text-muted"><?php echo $lang['left1002'] ?></small> <h6><?php echo $core->locker_address;?></h6>
-									<small class="text-muted"><?php echo $lang['left1003'] ?></small> <h6><?php echo $row->locker;?></h6>
-									<small class="text-muted"><?php echo $lang['left1004'] ?></small> <h6><?php echo $core->c_country;?></h6>
-									<small class="text-muted"><?php echo $lang['left1005'] ?></small> <h6><?php echo $core->c_city;?></h6>
-									<small class="text-muted"><?php echo $lang['left1006'] ?></small> <h6><?php echo $core->c_postal;?></h6>
-									<small class="text-muted"><?php echo $lang['left1007'] ?></small> <h6><?php echo $core->c_phone;?></h6>
-								</div>
-							</div>
 						</div>
 					</div>
 					<!-- Column -->
@@ -169,49 +172,7 @@
 					<div class="col-lg-8 col-xlg-9 col-md-7">
 
 
-					<div class="table-responsive">
-							<table id="zero_config" cellpadding="0" cellspacing="0" border="0" class="table table-striped">
-								<thead class="bg-secondary border-0 text-white">
-									<tr class="row100 head">
-										<th class="th-sm"><b>Name</b></th>
-										<th class="th-sm"><b>Details</b></th>
-										<th class="th-sm"><b>Status</b></th>
-									</tr>
-								</thead>
-								<tbody id="projects-tbl">
-									<tr class="row100">
-										<?php if(!$ser):?>
-										<tr>
-											<td colspan="7">
-											<?php echo "
-											<i align='center' class='display-3 text-warning d-block'><img src='assets/images/alert/ohh_shipment.png' width='160' /></i>
-											</br>
-											<p style='font-size: 20px; -webkit-font-smoothing: antialiased; color: #737373;' align='center'>Currently, There are no Available Services</p>
-											",false;?>
-											</td>
-										</tr>
-										<?php else:?>
-											<?php foreach ($ser  as $service):
-												
-												
-												?>								
-												<td><?php echo $service->name;?></td>
-												<td><?php echo $service->url;?></td>
-												<td>
-												<div class="custom-control custom-switch">
-													<input type="checkbox" class="custom-control-input" id="switch1">
-													<label class="custom-control-label" for="switch1">Subscribed</label>
-												</div>
-												</td>
-												
-											</tr>											
-											<?php endforeach;?>
-										<?php unset($service);?>
-										<?php endif;?>
-								</tbody>	
-							</table>
-							<!-- column -->
-						</div>
+
 
 
 						<div class="card">
@@ -328,26 +289,26 @@
 															<div class="inline-group">
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																	<input type="radio" id="customRadio4" class="custom-control-input" name="active" value="y" <?php getChecked($row->active, "y"); ?>>
-																	<label class="custom-control-label" for="customRadio4"> <?php echo $lang['user_manage16'] ?></label>
+																	<input readonly disabled type="radio" id="customRadio4"   name="active" value="y" <?php getChecked($row->active, "y"); ?>>
+																	<label   for="customRadio4"> <?php echo $lang['user_manage16'] ?></label>
 																	</div>
 																</label>
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																	<input type="radio" id="customRadio3" class="custom-control-input" name="active" value="n" <?php getChecked($row->active, "n"); ?>>
-																	<label class="custom-control-label" for="customRadio3"> <?php echo $lang['user_manage17'] ?></label>
+																	<input readonly disabled type="radio" id="customRadio3"   name="active" value="n" <?php getChecked($row->active, "n"); ?>>
+																	<label   for="customRadio3"> <?php echo $lang['user_manage17'] ?></label>
 																	</div>
 																</label>
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																	<input type="radio" id="customRadio2" class="custom-control-input" name="active" value="b" <?php getChecked($row->active, "b"); ?>>
-																	<label class="custom-control-label" for="customRadio2"> <?php echo $lang['user_manage18'] ?></label>
+																	<input readonly disabled type="radio" id="customRadio2"   name="active" value="b" <?php getChecked($row->active, "b"); ?>>
+																	<label   for="customRadio2"> <?php echo $lang['user_manage18'] ?></label>
 																	</div>
 																</label>	
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																	<input type="radio"id="customRadio1" class="custom-control-input"  name="active" value="t" <?php getChecked($row->active, "t"); ?>>
-																	<label class="custom-control-label" for="customRadio1"> <?php echo $lang['user_manage19'] ?></label>
+																	<input readonly disabled type="radio"id="customRadio1"    name="active" value="t" <?php getChecked($row->active, "t"); ?>>
+																	<label   for="customRadio1"> <?php echo $lang['user_manage19'] ?></label>
 																	</div>
 																</label>
 															</div>
@@ -359,14 +320,14 @@
 															<div class="btn-group" data-toggle="buttons">
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																		<input type="radio" id="customRadio4" name="newsletter" value="1" <?php getChecked($row->newsletter, 1); ?> class="custom-control-input">
-																		<label class="custom-control-label" for="customRadio4"> <?php echo $lang['user_manage21'] ?></label>
+																		<input type="radio" id="customRadio4" name="newsletter" value="1" <?php getChecked($row->newsletter, 1); ?> class="custom-control-input" >
+																		<label class="custom-control-label"  for="customRadio4"> <?php echo $lang['user_manage21'] ?></label>
 																	</div>
 																</label>
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																		<input type="radio" id="customRadio5" name="newsletter" value="0" <?php getChecked($row->newsletter, 0); ?> class="custom-control-input">
-																		<label class="custom-control-label" for="customRadio5"> <?php echo $lang['user_manage22'] ?></label>
+																		<input type="radio" id="customRadio5" name="newsletter" value="0" <?php getChecked($row->newsletter, 0); ?> class="custom-control-input" >
+																		<label class="custom-control-label"  for="customRadio5"> <?php echo $lang['user_manage22'] ?></label>
 																	</div>
 																</label>
 															</div>
@@ -443,12 +404,82 @@
 												</div>
 											</div>
 
+											<div class="table-responsive">
+							<table id="zero_config" cellpadding="0" cellspacing="0" border="0" class="table table-striped">
+								<thead class="bg-secondary border-0 text-white">
+									<tr class="row100 head">
+										<th class="th-sm"><b>Name</b></th>
+										<th class="th-sm"><b>Status</b></th>
+									</tr>
+								</thead>
+								<tbody id="projects-tbl">
+									<tr class="row100">
+  										<td>BUYING SERVICE</td>
+  										
+  										<td>
+										  <div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" <?php echo $row->buying_service==1 ? "checked" : ""; ?> id="buying_service" name="buying_service">
+											<label class="custom-control-label"  for="buying_service">Subscribed</label>
+  										  </div>
+										</td>
+									</tr>
+
+									<tr class="row100">
+  										<td>SELLING SERVICE</td>
+  										
+  										<td>
+										  <div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" <?php echo $row->selling_service==1 ? "checked" : ""; ?> id="selling_service" name="selling_service">
+											<label class="custom-control-label"  for="selling_service">Subscribed</label>
+  										  </div>
+										</td>
+									</tr>
+
+									<tr class="row100">
+  										<td>CUSTOM CLEARENCE SERVICE</td>
+  										
+  										<td>
+										  <div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" <?php echo $row->custom_service==1 ? "checked" : ""; ?> id="custom_service" name="custom_service">
+											<label class="custom-control-label"  for="custom_service">Subscribed</label>
+  										  </div>
+										</td>
+									</tr>
+
+									<tr class="row100">
+  										<td>PAYMENT SERVICE</td>
+  										
+  										<td>
+										  <div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" <?php echo $row->payment_service==1 ? "checked" : ""; ?> id="switch3" name="payment_service">
+											<label class="custom-control-label"  for="payment_service">Subscribed</label>
+  										  </div>
+										</td>
+									</tr>
+
+									<tr class="row100">
+  										<td>BUSINESS SERVICE</td>
+  										
+  										<td>
+										  <div class="custom-control custom-switch">
+											<input type="checkbox" class="custom-control-input" <?php echo $row->business_service==1 ? "checked" : ""; ?> id="business_service" name="business_service">
+											<label class="custom-control-label"  for="business_service">Subscribed</label>
+  										  </div>
+										</td>
+									</tr>
+										
+								</tbody>	
+							</table>
+							<!-- column -->
+						</div>
 
 										</form>
 									</div>
 								</div>
 							</div>
 						</div>
+
+						
 					</div>
 					<!-- Column -->
 				</div>
@@ -461,7 +492,11 @@
 			  if (!defined("_VALID_PHP"))
 				  die('Direct access to this location is not allowed.');
 			?>			
-			
+			<script>
+			$("form :input").change(function() {
+    console.log($(this).closest('form').serialize());
+});
+			</script>
 			<footer class="footer text-center">
 				&copy <?php echo date('Y').' '.$core->site_name;?> - <?php echo $lang['foot'] ?>
 			</footer>
@@ -508,25 +543,7 @@
 	<!--This page plugins -->
     <script src="assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="dist/js/pages/datatable/datatable-basic.init.js"></script>
-	<script>
-				$( "#save_item" ).submit(function( event ) {
-					parametros = $(this).serialize();
-					$.ajax({
-						type: "POST",
-						url:'ajax/add_items_courier.php',
-						data: parametros,
-						 beforeSend: function(objeto){
-							 $('.items').html('Processing wait...');
-						  },
-						success:function(data){
-							$(".items").html(data).fadeIn('slow');
-							$("#myModal").modal('hide');
-						}
-					})
-					
-				  event.preventDefault();
-				})
-	</script>
+
 
 </body>
 
