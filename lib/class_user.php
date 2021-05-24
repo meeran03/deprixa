@@ -1253,6 +1253,15 @@
 			if (empty($file_info))
 				Filter::$msgs['card_id'] = "Tipo de archivo ilegal. Solo se permiten tipos de archivo jpg y png.";
 		}
+
+		if (!empty($_FILES['card_id_back']['name'])) {
+			if (!preg_match("/(\.jpg|\.png)$/i", $_FILES['card_id_back']['name'])) {
+				Filter::$msgs['card_id_back'] = "Illegal file type. Only jpg and png file types are allowed.";
+			}
+			$file_info = getimagesize($_FILES['card_id_back']['tmp_name']);
+			if (empty($file_info))
+				Filter::$msgs['card_id_back'] = "Tipo de archivo ilegal. Solo se permiten tipos de archivo jpg y png.";
+		}
 		  
 		  if (empty(Filter::$msgs)) {
 			  
@@ -1300,6 +1309,18 @@
 				move_uploaded_file($_FILES['card_id']['tmp_name'], $thumbName);
 				$data['card_id'] = $tName . "." . strtolower($text);
 			}
+
+			if (!empty($_FILES['card_id_back']['name'])) {
+				$thumbdir = UPLOADS;
+				$tName = "AVT_" . randName();
+				$text = substr($_FILES['card_id_back']['name'], strrpos($_FILES['card_id_back']['name'], '.') + 1);
+				$thumbName = $thumbdir . $tName . "." . strtolower($text);
+				if (Filter::$id && $thumb = getValueById("card_id_back", self::uTable, Filter::$id)) {
+					@unlink($thumbdir . $thumb);
+				}
+				move_uploaded_file($_FILES['card_id_back']['tmp_name'], $thumbName);
+				$data['card_id_back'] = $tName . "." . strtolower($text);
+			}
 			     
 			  $userpass = getValueById("password", self::uTable, $this->uid);
 			  
@@ -1345,17 +1366,17 @@
 		  
 		  if (empty($_POST['phone']))
 			  Filter::$msgs['phone'] = 'Please enter the phone';
-		  if (empty($_POST['address']))
-			  Filter::$msgs['address'] = 'Please enter the address';
+		//   if (empty($_POST['address']))
+		// 	  Filter::$msgs['address'] = 'Please enter the address';
 		  
-		  if (empty($_POST['country']))
-			  Filter::$msgs['country'] = 'Please enter the country';
+		//   if (empty($_POST['country']))
+		// 	  Filter::$msgs['country'] = 'Please enter the country';
 		  
-		  if (empty($_POST['city']))
-			  Filter::$msgs['city'] = 'Please enter the city';
+		//   if (empty($_POST['city']))
+		// 	  Filter::$msgs['city'] = 'Please enter the city';
 		  
-		  if (empty($_POST['postal']))
-			  Filter::$msgs['postal'] = 'Please enter the zip code';
+		//   if (empty($_POST['postal']))
+		// 	  Filter::$msgs['postal'] = 'Please enter the zip code';
 			  
 		  if (empty($_POST['pass']))
 			  $this->msgs['pass'] = 'Enter a valid password.';
@@ -1382,6 +1403,9 @@
 		  
 		  if (empty($_POST['terms']))
 			  Filter::$msgs['terms'] = 'Please accept the terms and conditions';
+
+			  if (empty($_POST['privacy']))
+			  Filter::$msgs['privacy'] = 'Please accept the privacy policy';
 		  
 		  if (empty(Filter::$msgs)) {
 
@@ -1399,18 +1423,19 @@
 			  $data = array(
 					  'username' => sanitize($_POST['username']), 
 					  'password' => md5($_POST['pass']),
-					  'locker' => sanitize($_POST['locker']),
+					  'locker' => "",
 					  'email' => sanitize($_POST['email']), 
 					  'fname' => sanitize($_POST['fname']),
 					  'lname' => sanitize($_POST['lname']),
-					  'country' => sanitize($_POST['country']),				  
-					  'city' => sanitize($_POST['city']),
-					  'postal' => sanitize($_POST['postal']),
+					 // 'country' => sanitize($_POST['country']),				  
+					 // 'city' => sanitize($_POST['city']),
+					 // 'postal' => sanitize($_POST['postal']),
 					  'code_phone' => sanitize($_POST['code_phone']),
 				      'phone' => sanitize($_POST['phone']),
-				      'address' => sanitize($_POST['address']),
+				    //   'address' => sanitize($_POST['address']),
 					  'token' => $token,
 					  'terms' => sanitize($_POST['terms']),
+					  'privacy' => sanitize($_POST['privacy']),
 					  'active' => $active, 
 					  'created' => "NOW()"
 			  );

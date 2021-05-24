@@ -191,6 +191,18 @@
 											<div class="card-body">
 												<div class="row">
 
+
+												<div class="row">
+												
+											
+												<div class="col-sm-12 col-md-12 hide">
+													<div class="form-group">											
+														<!-- display google map -->
+														<div id="geomap" style="height: 200px"></div>
+													</div>
+												</div>
+											</div>
+
                                                 <div class="col-sm-12 col-md-6">
 														<label for="inputname" class="control-label col-form-label">Sender Name</label>
 														<div class="input-group mb-3">
@@ -360,7 +372,7 @@
 																				</span>';
 																		} 
 																		else {
-																		echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal" data-whatever="@mdo">
+																		echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal_inspect" data-whatever="@mdo">
 																					<span class="mdi mdi-book-plus"></span>See Documents
 																				</button>';
 																		}
@@ -385,7 +397,7 @@
 																					</span>';
 																			} 
 																			else {
-																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal" data-whatever="@mdo">
+																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal_return" data-whatever="@mdo">
 																						<span class="mdi mdi-book-plus"></span>See Documents
 																					</button>';
 																			}
@@ -409,7 +421,7 @@
 																					</span>';
 																			} 
 																			else { 
-																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal" data-whatever="@mdo">
+																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal_discard" data-whatever="@mdo">
 																						<span class="mdi mdi-book-plus"></span>See Documents
 																					</button>';
 																			}
@@ -681,9 +693,9 @@
                 </div>
 
                 <!-- End row -->
-				<form class="form-horizontal" name="save_invoice" id="save_invoice">
+				<!-- This is the modal for inspect docs upload -->
 						<!-- Modal -->					
-						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal_inspect" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -695,15 +707,17 @@
 											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
 											<div class="input-group mb-3">
 												<div id="editor">
-													<textarea name="package_invoice" id="summernote" style="margin-top: 60px;" placeholder="Write a text.."></textarea>
+													<textarea name="inspect_upload"  id="summernote" style="margin-top: 60px;" placeholder="Write a text..">
+														<?php echo $roww->inspect_upload; ?> 
+													</textarea>
 													<div class="label2 label-important"></div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
-										<button type="submit" class="btn btn-default">Upload</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
 									</div>
 								</div>
 							</div>
@@ -711,65 +725,74 @@
 
 				
 					<!-- End row -->
-				</form>
-				<!-- Modal edit detail courier -->	
-				<div class="panel-body">
-					<div class="modal fade bs-example-modal-lg" id="edit_courier" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-						<div class="modal-dialog modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="myLargeModalLabel"><?php echo $lang['left223'] ?></h4>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								</div>
-								<div class="modal-body">
-									<div class="row">
-										<div class="col-sm-12 col-md-8">
-											<div class="form-group">
-												<label for="message-text" class="control-label"><?php echo $lang['left224'] ?></label>
-												<textarea class="form-control" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['left225'] ?>" id="detail_description" autocomplete="off" required></textarea>
-											</div>
-										</div>
-										<div class="col-sm-12 col-md-4">
-											<div class="form-group">
-												<label for="inputlname" class="control-label col-form-label"><?php echo $lang['left226'] ?></label>
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['left227'] ?>" class="form-control" id="detail_qnty" autocomplete="off" required>
-											</div>
-										</div>
-										
+
+				<!--This is the modal for retirn docs upload  -->
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal_return" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel1"><?php echo $lang['left223'] ?></h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 									</div>
-									
-									
-									<div class="row">
-										<div class="col-sm-12 col-md-3">
-											<div class="form-group">
-												<label for="inputlname" class="control-label col-form-label"><?php echo $lang['left228'] ?></label>
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title31'] ?>" class="form-control" id="detail_weight" autocomplete="off" required>
-											</div>
-										</div>
-										<div class="col-sm-12 col-md-9">
-											<label for="inputlname" class="control-label col-form-label"><?php echo $lang['add-title34'] ?> <i class="ti-package" style="color:#36bea6"></i> <?php echo $lang['add-title35'] ?> <b><i style="color:#FF0000" class="ti-help-alt" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['add-title36'] ?> / <?php echo $core->meter;?> = kg"></i></b></label>
-											<div class="input-group">
-												<!-- input box for Length -->
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title37'] ?>" class="form-control" id="detail_length" autocomplete="off" required>
-												<div class="cross strong text__color-gray-darker text__size-smaller">&nbsp; x &nbsp;</div>
-												<!-- input box for width -->
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title38'] ?>" class="form-control" id="detail_width" autocomplete="off" required>
-												<div class="cross strong text__color-gray-darker text__size-smaller">&nbsp; x &nbsp;</div>
-												<!-- input box for height -->
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title39'] ?>" class="form-control" id="detail_height" autocomplete="off" required>
+									<div class="modal-body">
+										<div class="col-sm-12 col-md-12">
+											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
+											<div class="input-group mb-3">
+												<div id="editor">
+													<textarea name="return_upload" id="summernote1" style="margin-top: 60px;" placeholder="Write a text..">
+														<?php echo $roww->return_upload; ?> 
+													</textarea>
+													<div class="label2 label-important"></div>
+												</div>
 											</div>
 										</div>
 									</div>
-									<input class="form-control" type="hidden" id="uid">
-								</div>
-								<div class="modal-footer">
+									<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
-									<button id="save" name="btn" onclick="window.location.reload();" class="btn btn-default"><?php echo $lang['left248'] ?></button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+
+				
+					<!-- End row -->
+
+				<!-- THis is the modal for discard docs uplaod -->
+
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal_discard" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel1"><?php echo $lang['left223'] ?></h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<div class="col-sm-12 col-md-12">
+											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
+											<div class="input-group mb-3">
+												<div id="editor">
+													<textarea name="discard_upload" id="summernote2" style="margin-top: 60px;" placeholder="Write a text..">
+													<?php echo $roww->discard_upload; ?> 
+
+													</textarea>
+													<div class="label2 label-important"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+										<!-- <button type="submit" class="btn btn-default">Upload</button> -->
+									</div>
+								</div>
+							</div>
+						</div>
+				<!-- Modal edit detail courier -->	
+
 				</div>
             </div>
 			<?php echo Core::doForm("processUCourier");?>
@@ -887,3 +910,19 @@
 						
 					}
 			</script>
+
+
+<script>
+		$(document).ready(function() {
+
+			var data1 = <?php echo json_encode($roww->inspect_upload); ?> ;
+			var data2 = <?php echo json_encode($roww->return_upload); ?> ;
+			var data3 = <?php echo json_encode($roww->discard_upload); ?> ;
+			$('#summernote').summernote();
+			// $('#summernote').summernote('code',data1);
+			$('#summernote1').summernote();
+			// $('#summernote1').summernote('code',data2);
+			$('#summernote2').summernote();
+			// $('#summernote2').summernote('code',data3);
+		});
+</script>

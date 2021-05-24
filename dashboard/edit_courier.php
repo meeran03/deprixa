@@ -1,23 +1,4 @@
 <?php
-// *************************************************************************
-// *                                                                       *
-// * DEPRIXA -  Integrated Web system                                      *
-// * Copyright (c) JAOMWEB. All Rights Reserved                            *
-// *                                                                       *
-// *************************************************************************
-// *                                                                       *
-// * Email: osorio2380@yahoo.es                                            *
-// * Website: http://www.jaom.info                                         *
-// *                                                                       *
-// *************************************************************************
-// *                                                                       *
-// * This software is furnished under a license and may be used and copied *
-// * only  in  accordance  with  the  terms  of such  license and with the *
-// * inclusion of the above copyright notice.                              *
-// * If you Purchased from Codecanyon, Please read the full License from   *
-// * here- http://codecanyon.net/licenses/standard                         *
-// *                                                                       *
-// *************************************************************************
 
   define("_VALID_PHP", true);
   require_once("../init.php");
@@ -120,11 +101,12 @@
 				<?php switch(Filter::$action): case "ship": ?>
 				<?php  $roww = Core::getRowById(Core::cTable, Filter::$id);?>
 				<!-- Row -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <form id="admin_form" method="post">
-                                <div class="card-body">
+			<form id="admin_form" method="post">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							
+								<div class="card-body">
 									<div class="row">
 										<div class="col-sm-12 col-lg-6">
 											<h4 class="card-title"><i class="mdi mdi-information-outline" style="color:#36bea6"></i> <?php echo $lang['add-title3'] ?></h4>
@@ -133,9 +115,9 @@
 											<h4 class="card-title"><i class="mdi mdi-book-multiple" style="color:#36bea6"></i> <?php echo $lang['add-title13'] ?></h4>
 										</div>
 									</div>		
-                                </div>
-                                <hr>
-                                <div class="form-body">
+								</div>
+								<hr>
+								<div class="form-body">
 									<div class="row">
 										<div class="col-sm-12 col-lg-6" style="display:none">
 											<div class="card-body">
@@ -213,7 +195,7 @@
 												<a class="btn waves-effect waves-light btn-xs btn-info btn-outline-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-align-left"></i> <?php echo $lang['left193'] ?></a>
 												<div class="row">
 													<div class="col-sm-12 col-md-6">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title4'] ?></label>
+														<label for="inputname" class="control-label col-form-label">Sender Name</label>
 														<div class="input-group mb-3">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
@@ -221,95 +203,13 @@
 															<input type="text" class="form-control" id="searchnames"  name="r_name" value="<?php echo $roww->r_name;?>" readonly>
 														</div>
 													</div>
-													<div class="col-sm-12 col-md-6">
-														<div class="form-group">
-															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title5'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1">@</span>
-																</div>
-																<input type="email" class="form-control" id="mail" name="r_email"  value="<?php echo $roww->r_email;?>" readonly >
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- Collapsible element -->
-												<div class="collapse" id="collapseExample">
-													<div class="row">
-														<div class="col-sm-12 col-md-6">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title8'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-phone"></i></span>
-																</div>
-																<input type="number" class="form-control"  name="r_phone"  value="<?php echo $roww->r_phone;?>">
-															</div>
-														</div>
-														<div class="col-sm-12 col-md-6">
-															<label for="inputcontact" class="control-label col-form-label" style="color:#ff0000"><b><?php echo $lang['add-title9'] ?></b></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-screen-smartphone"></i></span>
-																</div>
-																<input type="number" class="form-control" id="phones" name="rc_phone" value="<?php echo $roww->rc_phone;?>">
-															</div>
-														</div>									                                     
-													</div>
-													<div class="row"> 
-														<div class="col-sm-12 col-md-4">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title10'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-location-pin"></i></span>
-																</div>
-																<input type="text" class="form-control" id="zones" name="r_dest" value="<?php echo $roww->r_dest;?>">
-															</div>
-														</div>  
-														<div class="col-sm-12 col-md-4">
-															<label for="inputcontact" class="control-label col-form-label"><?php echo $lang['add-title11'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-map"></i></span>
-																</div>
-																<input type="text" class="form-control" id="citys" name="r_city" value="<?php echo $roww->r_city;?>">
-															</div>
-														</div>
-													
-														<div class="col-sm-12 col-md-4">
-															<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title12'] ?></label>
-															<div class="input-group mb-3">
-																<div class="input-group-prepend">
-																	<span class="input-group-text" id="basic-addon1"><i class="icon-pin"></i></span>
-																</div>
-																<input type="text" class="form-control" id="zips" name="r_postal" value="<?php echo $roww->r_postal;?>">
-															</div>
-														</div>
-													</div>
-												</div>
+										</div>
 												<!-- / Collapsible element -->
 
 												<div class="row">
-													<div class="col-sm-12 col-md-12">
-														<label for="inputlname" class="control-label col-form-label"><?php echo $lang['add-title6'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-btn">
-																<button class="btn btn-secondary get_map" type="submit">
-																	<?php echo $lang['left199'] ?>
-																</button>
-															</div>
-															<input type="text" class="form-control" id="search_location" value="<?php echo $roww->r_address;?>" placeholder="<?php echo $lang['left200'] ?>" required>
-															<input type="hidden" name="r_address" value="<?php echo $roww->r_address;?>" class="search_addr">
-															<input type="hidden" name="latitude" value="<?php echo $roww->latitude;?>" class="search_latitude">
-															<input type="hidden" name="longitude" value="<?php echo $roww->longitude;?>" class="search_longitude">
-															<input type="hidden" name="latitude_history" value="<?php echo $roww->latitude_history;?>" class="search_latitude">	
-															<input type="hidden" name="longitude_history" value="<?php echo $roww->longitude_history;?>" class="search_longitude">	
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="icon-direction"></i></span>
-															</div>
-														</div>
-													</div>		
+												
 											
-													<div class="col-sm-12 col-md-12">
+													<div class="col-sm-12 col-md-12 hide">
 														<div class="form-group">											
 															<!-- display google map -->
 															<div id="geomap" style="height: 200px"></div>
@@ -348,20 +248,7 @@
 															<input type='text' class="form-control" id='datetimepicker1' name="collection_courier" placeholder="<?php echo $lang['edit-courier11'] ?>" value="<?php echo $roww->collection_courier;?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title16'] ?>" />
 														</div>
 													</div>
-													
-													<div class="col-sm-12 col-md-4">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['add-title14'] ?></label>
-														<div class="input-group mb-3">
-															<select class="custom-select col-12" id="exampleFormControlSelect1" name="origin_off" value="<?php if(isset($roww->origin_off)){echo  $roww->origin_off;}?>">
-															<?php 
-															$office = $core->getOffices();
-															foreach ($office as $rows):?>
-																<option value="<?php echo $rows->name_off; ?>"><?php echo $rows->name_off; ?></option>
-															<?php endforeach;?>
-															</select>
-														</div>
-													</div>
-													<!--/span-->
+												
 												</div>
 												<div class="row">
 													<div class="col-sm-12 col-md-4">
@@ -377,40 +264,7 @@
 															</datalist>
 														</div>
 													</div>	
-													<!--/span-->
-													<?php $delitimerow = $core->getDelitime();?>
-													<div class="col-sm-12 col-md-4">
-														<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title20'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="basic-addon1"><i class="icon-clock"></i></span>
-															</div>
-															<input type="text" class="form-control" name="deli_time" value="<?php if(isset($roww->deli_time)){echo  $roww->deli_time;}?>" placeholder="--<?php echo $lang['left207'] ?>--" list="browsersstatus" autocomplete="off" required="required">
-															<datalist id="browsersstatus">
-																<?php foreach ($delitimerow as $row):?>
-																<option value="<?php echo $row->delitime; ?>"><?php echo $row->delitime; ?></option>
-																<?php endforeach;?>
-															</datalist>	
-														</div>
-													</div>
-													
-													<div class="col-sm-12 col-md-4">
-														<label for="inputname" class="control-label col-form-label"><?php echo $lang['langs_035'] ?></label>
-														<div class="input-group mb-3">
-															<div class="input-group-prepend">
-																<span class="input-group-text" style="color:#ff0000"><i class="fas fa-car"></i></span>
-															</div>
-															<input class="custom-select col-12" id="exampleFormControlSelect1" name="c_driver" list="browser" autocomplete="off" value="<?php if(isset($roww->c_driver)){echo  $roww->c_driver;}?>">
-															<datalist id="browser">
-																<?php 
-																$driverrow = $user->getDrivers();
-																foreach ($driverrow as $rows):?>
-																<option value="<?php echo $rows->username; ?>"><?php echo $rows->fname; ?> <?php echo $rows->lname; ?></option>
-																<?php endforeach;?>
-															</datalist>			
-														</div>
-													</div>	
-													<!--/span-->
+								
 												</div>
 												
 												<div class="row">
@@ -479,7 +333,7 @@
 													<div class="col-sm-12 col-md-12">
 														<label for="inputEmail3" class="control-label col-form-label"><?php echo $lang['add-title32'] ?></label>
 														<div class="input-group">
-															 <textarea class="form-control" rows="2" name="r_description" placeholder="<?php echo $lang['add-title33'] ?>"><?php if(isset($roww->r_description)){echo  $roww->r_description;}?></textarea>
+															<textarea class="form-control" rows="2" name="r_description" placeholder="<?php echo $lang['add-title33'] ?>"><?php if(isset($roww->r_description)){echo  $roww->r_description;}?></textarea>
 														</div>
 													</div>
 												</div>	
@@ -509,11 +363,21 @@
 														<tbody>
 												
 															<tr id="<?php echo $roww->id; ?>" class="fixed-row">
-																<td data-target="detail_weight" class='text-center'><?php echo $roww->r_weight;?></td>
-																<td data-target="detail_length" class='text-center'><?php echo $roww->length;?></td>
-																<td data-target="detail_width" class='text-center'><?php echo $roww->width;?></td>
-																<td data-target="detail_height" class='text-center'><?php echo $roww->height;?></td>
-																<td data-target="detail_vol" class='text-center'><?php echo $roww->v_weight;?></td>
+																<td data-target="detail_weight" class='text-center'>
+																	<input name="r_weight"	value="<?php echo $roww->r_weight;?>" >
+																</td>
+																<td data-target="detail_length" class='text-center'>
+																	<input name="length"	value="<?php echo $roww->length;?>" >
+																</td>
+																<td data-target="detail_width" class='text-center'>
+																	<input name="width"	value="<?php echo $roww->width;?>" >
+																</td>
+																<td data-target="detail_height" class='text-center'>
+																	<input name="height"	value="<?php echo $roww->height;?>" >
+																</td>
+																<td data-target="detail_vol" class='text-center'>
+																	<input name="v_weight"	value="<?php echo $roww->v_weight;?>" >
+																</td>
 															</tr>
 														
 															<?php echo "<script>console.log(".json_encode($roww).");</script>"; ?>
@@ -530,16 +394,9 @@
 																	<?php 
 																	
 																	if ($roww->inspect_id == $inspect->id) {
-																		if ($roww->inspect_upload == "") {
-																		echo   '<span class="col-4" > 
-																					<span class="btn btn-secondary">Upload</span>																	
-																				</span>';
-																		} 
-																		else {
-																		echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal" data-whatever="@mdo">
-																					<span class="mdi mdi-book-plus"></span>See Documents
-																				</button>';
-																		}
+																		echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal_inspect" data-whatever="@mdo">
+																					<span class="mdi mdi-book-plus"></span>Upload Documents
+																				</button>';	
 																	}
 
 																	?>
@@ -555,16 +412,10 @@
 																		<?php 
 																		
 																		if ($roww->return_id == $return->id) {
-																			if ($roww->return_upload == "") {
-																			echo   '<span class="col-4" > 
-																						<span class="btn btn-secondary">Upload</span>																	
-																					</span>';
-																			} 
-																			else {
-																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal" data-whatever="@mdo">
-																						<span class="mdi mdi-book-plus"></span>See Documents
+																	
+																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal_return" data-whatever="@mdo">
+																						<span class="mdi mdi-book-plus"></span>Upload Documents
 																					</button>';
-																			}
 																		}
 
 																	?>
@@ -579,18 +430,10 @@
 																		<?php 
 																		
 																		if ($roww->discard_id == $discard->id) {
-																			if ($roww->discard_upload == "") {
-																			echo   '<span class="col-4" > 
-																						<span class="btn btn-secondary">Upload</span>																	
-																					</span>';
-																			} 
-																			else { 
-																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal" data-whatever="@mdo">
-																						<span class="mdi mdi-book-plus"></span>See Documents
+																			echo   '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#save_invoice_modal_discard" data-whatever="@mdo">
+																						<span class="mdi mdi-book-plus"></span>Upload Documents
 																					</button>';
-																			}
 																		}
-
 																	?>
 																	</div>
 																</td>
@@ -696,7 +539,7 @@
 																						</div>
 																					</div>
 																					
-																					<div class="col-sm-6 col-md-6">										
+																					<!-- <div class="col-sm-6 col-md-6">										
 																						<label for="inputcom" class="control-label col-form-label"><b><?php echo $lang['left235'] ?></b></label>
 																						<div class="input-group mb-3">
 																							<div class="input-group-prepend">
@@ -704,7 +547,7 @@
 																							</div>	
 																							<input type="text" class="form-control" name="r_weight" value="<?php echo $sumweight; ?>">
 																						</div>
-																					</div>
+																					</div> -->
 																					
 																					<div class="col-sm-6 col-md-6">										
 																						<label for="inputcom" class="control-label col-form-label"><b><?php echo $lang['left235'] ?></b></label>
@@ -865,73 +708,113 @@
 										<input name="id" type="hidden" value="<?php echo Filter::$id;?>" />
 									</div>
 								</div>								
-                            </form>
 
-                    </div>
-                </div>
 
+					</div>
+				</div>
+			
                 <!-- End row -->
-				
-				<!-- Modal edit detail courier -->	
-				<div class="panel-body">
-					<div class="modal fade bs-example-modal-lg" id="edit_courier" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-						<div class="modal-dialog modal-lg">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="myLargeModalLabel"><?php echo $lang['left223'] ?></h4>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								</div>
-								<div class="modal-body">
-									<div class="row">
-										<div class="col-sm-12 col-md-8">
-											<div class="form-group">
-												<label for="message-text" class="control-label"><?php echo $lang['left224'] ?></label>
-												<textarea class="form-control" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['left225'] ?>" id="detail_description" autocomplete="off" required></textarea>
-											</div>
-										</div>
-										<div class="col-sm-12 col-md-4">
-											<div class="form-group">
-												<label for="inputlname" class="control-label col-form-label"><?php echo $lang['left226'] ?></label>
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['left227'] ?>" class="form-control" id="detail_qnty" autocomplete="off" required>
-											</div>
-										</div>
-										
+				<!-- This is the modal for inspect docs upload -->
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal_inspect" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel1"><?php echo $lang['left223'] ?></h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 									</div>
-									
-									
-									<div class="row">
-										<div class="col-sm-12 col-md-3">
-											<div class="form-group">
-												<label for="inputlname" class="control-label col-form-label"><?php echo $lang['left228'] ?></label>
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title31'] ?>" class="form-control" id="detail_weight" autocomplete="off" required>
-											</div>
-										</div>
-										<div class="col-sm-12 col-md-9">
-											<label for="inputlname" class="control-label col-form-label"><?php echo $lang['add-title34'] ?> <i class="ti-package" style="color:#36bea6"></i> <?php echo $lang['add-title35'] ?> <b><i style="color:#FF0000" class="ti-help-alt" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['add-title36'] ?> / <?php echo $core->meter;?> = kg"></i></b></label>
-											<div class="input-group">
-												<!-- input box for Length -->
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title37'] ?>" class="form-control" id="detail_length" autocomplete="off" required>
-												<div class="cross strong text__color-gray-darker text__size-smaller">&nbsp; x &nbsp;</div>
-												<!-- input box for width -->
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title38'] ?>" class="form-control" id="detail_width" autocomplete="off" required>
-												<div class="cross strong text__color-gray-darker text__size-smaller">&nbsp; x &nbsp;</div>
-												<!-- input box for height -->
-												<input type="number" data-toggle="tooltip" data-placement="bottom" title="<?php echo $lang['add-title39'] ?>" class="form-control" id="detail_height" autocomplete="off" required>
+									<div class="modal-body">
+										<div class="col-sm-12 col-md-12">
+											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
+											<div class="input-group mb-3">
+												<div id="editor">
+													<textarea name="inspect_upload"  id="summernote" style="margin-top: 60px;" placeholder="Write a text..">
+														<?php echo $roww->inspect_upload; ?> 
+													</textarea>
+													<div class="label2 label-important"></div>
+												</div>
 											</div>
 										</div>
 									</div>
-									<input class="form-control" type="hidden" id="uid">
-								</div>
-								<div class="modal-footer">
+									<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
-									<button id="save" name="btn" onclick="window.location.reload();" class="btn btn-default"><?php echo $lang['left248'] ?></button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				</div>
-            </div>
+
+				
+					<!-- End row -->
+
+				<!--This is the modal for retirn docs upload  -->
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal_return" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel1"><?php echo $lang['left223'] ?></h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<div class="col-sm-12 col-md-12">
+											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
+											<div class="input-group mb-3">
+												<div id="editor">
+													<textarea name="return_upload" id="summernote1" style="margin-top: 60px;" placeholder="Write a text..">
+														<?php echo $roww->return_upload; ?> 
+													</textarea>
+													<div class="label2 label-important"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+				
+					<!-- End row -->
+
+				<!-- THis is the modal for discard docs uplaod -->
+
+						<!-- Modal -->					
+						<div class="modal fade bs-example-modal-lg" id="save_invoice_modal_discard" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel1"><?php echo $lang['left223'] ?></h4>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<div class="col-sm-12 col-md-12">
+											<label for="inputEmail3" class="control-label col-form-label">Upload scanned documents</label>
+											<div class="input-group mb-3">
+												<div id="editor">
+													<textarea name="discard_upload" id="summernote2" style="margin-top: 60px;" placeholder="Write a text..">
+													<?php echo $roww->discard_upload; ?> 
+
+													</textarea>
+													<div class="label2 label-important"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang['left229'] ?></button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
+										<!-- <button type="submit" class="btn btn-default">Upload</button> -->
+									</div>
+								</div>
+							</div>
+						</div>
+
+			</form>
+					<!-- End row -->
 			<?php echo Core::doForm("processUCourier");?>
 			<?php break;?>
 			<?php endswitch;?>
@@ -942,61 +825,7 @@
 			 <!-- ============================================================== -->
 			<!-- All Jquery -->
 			<script>
-			  $(document).ready(function(){
 
-				//  append values in input fields
-				  $(document).on('click','a[data-role=update]',function(){
-						var id  = $(this).data('id');
-						var detail_description  = $('#'+id).children('td[data-target=detail_description]').text();
-						var detail_qnty  = $('#'+id).children('td[data-target=detail_qnty]').text();
-						var detail_weight  = $('#'+id).children('td[data-target=detail_weight]').text();
-						var detail_length  = $('#'+id).children('td[data-target=detail_length]').text();
-						var detail_width  = $('#'+id).children('td[data-target=detail_width]').text();
-						var detail_height  = $('#'+id).children('td[data-target=detail_height]').text();
-
-						$('#detail_description').val(detail_description);
-						$('#detail_qnty').val(detail_qnty);
-						$('#detail_weight').val(detail_weight);
-						$('#detail_length').val(detail_length);
-						$('#detail_width').val(detail_width);
-						$('#detail_height').val(detail_height);
-						$('#uid').val(id);
-						$('#edit_courier').modal('toggle');
-				  });
-
-				  // now create event to get data from fields and update in database 
-
-				   $('#save').click(function(){
-					  var id  = $('#uid').val(); 
-					  var detail_description =  $('#detail_description').val();
-					  var detail_qnty =  $('#detail_qnty').val();
-					  var detail_weight =   $('#detail_weight').val();
-					  var detail_length =   $('#detail_length').val();
-					  var detail_width =   $('#detail_width').val();
-					  var detail_height =   $('#detail_height').val();
-
-					  $.ajax({
-						  url      : 'update_addcourier.php',
-						  method   : 'post', 
-						  data     : {detail_description : detail_description , detail_qnty: detail_qnty , detail_weight : detail_weight , detail_length : detail_length, detail_width : detail_width, detail_height : detail_height, id: id},
-						  success  : function(response){
-										// now update user record in table 
-										 $('#'+id).children('td[data-target=detail_description]').text(detail_description);
-										 $('#'+id).children('td[data-target=detail_qty]').text(detail_qty);
-										 $('#'+id).children('td[data-target=detail_weight]').text(detail_weight);
-										 $('#'+id).children('td[data-target=detail_length]').text(detail_length);
-										 $('#'+id).children('td[data-target=detail_width]').text(detail_width);
-										 $('#'+id).children('td[data-target=detail_height]').text(detail_height);
-										 $('#edit_courier').modal('toggle'); 
-										if (response == "refresh"){
-										  window.location.reload(true);   // This is not jQuery but simple plain ol' JS
-										}
-									 }
-									 
-								 
-					  });
-				   });
-			  });
 			</script>
 			
 			<script>
@@ -1041,3 +870,20 @@
 						
 					}
 			</script>
+
+
+<script>
+		$(document).ready(function() {
+
+			var data1 = <?php echo json_encode($roww->inspect_upload); ?> ;
+			var data2 = <?php echo json_encode($roww->return_upload); ?> ;
+			var data3 = <?php echo json_encode($roww->discard_upload); ?> ;
+			$('#summernote').summernote();
+			// $('#summernote').summernote('code',data1);
+			$('#summernote1').summernote();
+			// $('#summernote1').summernote('code',data2);
+			$('#summernote2').summernote();
+			// $('#summernote2').summernote('code',data3);
+		});
+</script>
+		

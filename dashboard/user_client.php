@@ -120,30 +120,34 @@
 					<div class="col-lg-4 col-xlg-3 col-md-5">
 						<div class="card">
 							<div class="card-body">
-								<center class="m-t-30"> <img src="../thumbmaker.php?src=<?php echo UPLOADURL;?><?php echo ($row->avatar) ? $row->avatar : "blank.png";?>&amp;w=<?php echo $core->thumb_w;?>&amp;h=<?php echo $core->thumb_h;?>&amp;s=1&amp;a=t1" class="rounded-circle" width="150" />
+								<!-- <center class="m-t-30"> <img src="../thumbmaker.php?src=<?php echo UPLOADURL;?><?php echo ($row->avatar) ? $row->avatar : "blank.png";?>&amp;w=<?php echo $core->thumb_w;?>&amp;h=<?php echo $core->thumb_h;?>&amp;s=1&amp;a=t1" class="rounded-circle" width="150" /> -->
 									<h4 class="card-title m-t-10"><?php echo $row->fname;?> <?php echo $row->lname;?></h4>
 									<h6 class="card-subtitle"><span><?php echo $lang['user_manage2'] ?> <i class="icon-double-angle-right"></i></span>  <div class="badge badge-pill badge-light font-16"><span class="ti-user text-warning"></span>	<?php echo $user->username;?></div></h6>
 									<h6 class="card-subtitle"><span>User Locker<i class="icon-double-angle-right"></i></span>  <div class="badge badge-pill badge-light font-16"><span class="ti-user text-warning"></span>	<?php echo $user->locker;?></div></h6>
 								</center>
 							</div>
 							<div><hr> </div>
-							<div class="card-body">
-								<div class="col-xs-12 ">
-									<p class="lead"><b>Virtual Address</b></p>
-								</div>
 
-								<div class="col-xs-12" style="font-size:14px;">
-									<div class="lead sub-title"><b></b></div>
-									<small class="text-muted"><?php echo $lang['left1028'] ?></small>
-									<h6><?php echo $row->fname;?> <?php echo $row->lname;?></h6>
-									<small class="text-muted"><?php echo $lang['left1002'] ?></small> <h6><?php echo $core->locker_address;?></h6>
-									<small class="text-muted"><?php echo $lang['left1003'] ?></small> <h6><?php echo $row->locker;?></h6>
-									<small class="text-muted"><?php echo $lang['left1004'] ?></small> <h6><?php echo $core->c_country;?></h6>
-									<small class="text-muted"><?php echo $lang['left1005'] ?></small> <h6><?php echo $core->c_city;?></h6>
-									<small class="text-muted"><?php echo $lang['left1006'] ?></small> <h6><?php echo $core->c_postal;?></h6>
-									<small class="text-muted"><?php echo $lang['left1007'] ?></small> <h6><?php echo $core->c_phone;?></h6>
+							<?php if($row->active == "y"){?>
+
+								<div class="card-body">
+									<div class="col-xs-12 ">
+										<p class="lead"><b>Virtual Address</b></p>
+									</div>
+
+									<div class="col-xs-12" style="font-size:14px;">
+										<div class="lead sub-title"><b></b></div>
+										<small class="text-muted"><?php echo $lang['left1028'] ?></small>
+										<h6><?php echo $row->fname;?> <?php echo $row->lname;?></h6>
+										<small class="text-muted"><?php echo $lang['left1002'] ?></small> <h6><?php echo $core->locker_address;?></h6>
+										<small class="text-muted"><?php echo $lang['left1003'] ?></small> <h6><?php echo $row->locker;?></h6>
+										<small class="text-muted"><?php echo $lang['left1004'] ?></small> <h6><?php echo $core->c_country;?></h6>
+										<small class="text-muted"><?php echo $lang['left1005'] ?></small> <h6><?php echo $core->c_city;?></h6>
+										<small class="text-muted"><?php echo $lang['left1006'] ?></small> <h6><?php echo $core->c_postal;?></h6>
+										<small class="text-muted"><?php echo $lang['left1007'] ?></small> <h6><?php echo $core->c_phone;?></h6>
+									</div>
 								</div>
-							</div>
+								<?php }; ?>
 
 							<div class="col-xs-12 pd0"><hr></div>
 
@@ -152,8 +156,8 @@
 								<h6><?php echo $row->email;?></h6> 
 								<small class="text-muted p-t-30 db"><?php echo $lang['left1062'] ?></small>
 								<h6><?php echo $row->code_phone;?> <?php echo $row->phone;?></h6> 
-								<small class="text-muted p-t-30 db"><?php echo $lang['left1063'] ?></small>
-								<h6><?php echo $row->country;?>, <?php echo $row->city;?>, <?php echo $row->postal;?>, <?php echo $row->address;?></h6>
+								<!-- <small class="text-muted p-t-30 db"><?php echo $lang['left1063'] ?></small> -->
+								<!-- <h6><?php echo $row->country;?>, <?php echo $row->city;?>, <?php echo $row->postal;?>, <?php echo $row->address;?></h6> -->
 							</div>
 							<div class="card-body row text-center">
 								<div class="col-6 border-right">
@@ -252,10 +256,10 @@
 													</div>
 													<div class="col-md-4">
 														<div class="form-group">
-															<label for="phoneNumber1"><?php echo $lang['user_manage11'] ?></label>
+															<label for="phoneNumber1">Title</label>
 															<select class="custom-select form-control" name="gender" value="<?php echo $row->gender;?>" placeholder="<?php echo $lang['user_manage11'] ?>">
-																<option value="Male">Male</option>
-																<option value="Female">Female</option>
+																<option value="Mr.">Mr.</option>
+																<option value="Ms.">Ms.</option>
 																<option value="Other">Other</option>
 															</select>
 														</div>
@@ -282,8 +286,8 @@
 													</div>
 												</div>
 												
-												<div class="row">
-													<div class="col-md-5">
+												<div class="row ">
+													<div class="col-md-5 hide hidden">
 														<div class="form-group">
 															<label for="phoneNumber1"><?php echo $lang['user_manage20'] ?></label>
 															<div class="inline-group">
@@ -320,14 +324,14 @@
 															<div class="btn-group" data-toggle="buttons">
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																		<input type="radio" id="customRadio4" name="newsletter" value="1" <?php getChecked($row->newsletter, 1); ?> class="custom-control-input" >
-																		<label class="custom-control-label"  for="customRadio4"> <?php echo $lang['user_manage21'] ?></label>
+																		<input type="radio" id="customRadio4" name="newsletter" value="1" <?php getChecked($row->newsletter, 1); ?>  >
+																		<label  for="customRadio4"> <?php echo $lang['user_manage21'] ?></label>
 																	</div>
 																</label>
 																<label class="btn">
 																	<div class="custom-control custom-radio">
-																		<input type="radio" id="customRadio5" name="newsletter" value="0" <?php getChecked($row->newsletter, 0); ?> class="custom-control-input" >
-																		<label class="custom-control-label"  for="customRadio5"> <?php echo $lang['user_manage22'] ?></label>
+																		<input type="radio" id="customRadio5" name="newsletter" value="0" <?php getChecked($row->newsletter, 0); ?>  >
+																		<label  for="customRadio5"> <?php echo $lang['user_manage22'] ?></label>
 																	</div>
 																</label>
 															</div>
@@ -335,7 +339,7 @@
 													</div>
 												</div>
 												
-												<div class="row">
+												<div class="row hide hidden ">
 													<div class="col-md-6">
 														<div class="form-group">
 															<label for="lastName1"><?php echo $lang['user_manage24'] ?></label>
@@ -354,32 +358,36 @@
 												<div class="row">
 													<div class="col-md-6">
 														<div class="form-group">
-															<label for="lastName1">User ID</label>
+															<label for="lastName1">PLease Upload Your Photo ID(Front)</label>
 															<input class="form-control" name="card_id" type="file" />
 														</div>
 													</div>
 													<div class="col-md-6">
 														<div class="form-group">
-															<label for="emailAddress1">User ID</label>
+															<label for="emailAddress1">Photo ID</label>
 															<br>
 															<img src="../thumbmaker.php?src=<?php echo UPLOADURL;?><?php echo ($row->card_id) ? $row->card_id : "blank.png";?>&amp;w=40&amp;h=40&amp;s=1&amp;a=t1" alt="" title="" class="avatar" />
 														</div>
 													</div>
 												</div>
+
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="lastName1">PLease Upload Your Photo ID(Back)</label>
+															<input class="form-control" name="card_id_back" type="file" />
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="emailAddress1">Photo ID</label>
+															<br>
+															<img src="../thumbmaker.php?src=<?php echo UPLOADURL;?><?php echo ($row->card_id_back) ? $row->card_id_back : "blank.png";?>&amp;w=40&amp;h=40&amp;s=1&amp;a=t1" alt="" title="" class="avatar" />
+														</div>
+													</div>
+												</div>
 												
 												<div class="row">
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="emailAddress1"><?php echo $lang['user_manage25'] ?></label>
-															<input type="text" class="form-control" name="created" disabled="disabled" readonly="readonly" value="<?php echo $row->created;?>" placeholder="<?php echo $lang['user_manage25'] ?>">
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="phoneNumber1"><?php echo $lang['user_manage26'] ?></label>
-															<input type="text" class="form-control" name="lastlogin" disabled="disabled" readonly="readonly" value="<?php echo $row->lastlogin;?>" placeholder="<?php echo $lang['user_manage26'] ?>">
-														</div>
-													</div>
 													<div class="col-md-4">
 														<div class="form-group">
 															<label for="phoneNumber1"><?php echo $lang['user_manage27'] ?></label>
@@ -388,7 +396,7 @@
 													</div>
 												</div>
 												<hr />
-												<div class="row">
+												<div class="row hide hidden">
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="emailAddress1"><?php echo $lang['user_manage28'] ?></label>

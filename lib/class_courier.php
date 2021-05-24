@@ -1676,29 +1676,24 @@
 				  Filter::$msgs['s_name'] = 'Please enter the full name';
 		  }
 
-		  if (empty($_POST['r_email']))
-			  Filter::$msgs['r_email'] = 'Please Enter Valid Email Address';
-		  if (!$this->isValidEmail($_POST['r_email']))
-			  Filter::$msgs['r_email'] = 'Entered Email Address Is Not Valid.';	
+		//   if (empty($_POST['r_email']))
+		// 	  Filter::$msgs['r_email'] = 'Please Enter Valid Email Address';
+		//   if (!$this->isValidEmail($_POST['r_email']))
+		// 	  Filter::$msgs['r_email'] = 'Entered Email Address Is Not Valid.';	
 		   
-		  if (empty($_POST['rc_phone']))
-			  Filter::$msgs['rc_phone'] = 'Please Enter Cell Phone';
-		  if (empty($_POST['r_dest']))
-			  Filter::$msgs['r_dest'] = 'Please Enter Destination';
-		  if (empty($_POST['r_city']))
-			  Filter::$msgs['r_city'] = 'Please Enter City';
-		  if (empty($_POST['r_postal']))
-			  Filter::$msgs['r_postal'] = 'Please Enter Postal Code';		  
+		//   if (empty($_POST['rc_phone']))
+		// 	  Filter::$msgs['rc_phone'] = 'Please Enter Cell Phone';	  
 		  if (empty($_POST['collection_courier']))
 			  Filter::$msgs['collection_courier'] = 'Please Enter Date Collection';
-		  if (empty($_POST['r_qnty']))
-			  Filter::$msgs['r_qnty'] = 'Please Enter Quantity';
+		//   if (empty($_POST['r_qnty']))
+		// 	  Filter::$msgs['r_qnty'] = 'Please Enter Quantity';
 		  if (empty($_POST['r_weight']))
 			  Filter::$msgs['r_weight'] = 'Please Enter Weight Package';
 		  if (empty($_POST['r_description']))
 			  Filter::$msgs['r_description'] = 'Please Enter Description Package';
-		  if (empty($_POST['r_custom']))
-			  Filter::$msgs['r_custom'] = 'Please Enter Custom Value';
+		//   if (empty($_POST['r_custom']))
+		// 	  Filter::$msgs['r_custom'] = 'Please Enter Custom Value';
+
 
 		  
 		  if (empty(Filter::$msgs)) {
@@ -1743,6 +1738,9 @@
 				  'r_description' => sanitize($_POST['r_description']), 
 				  'supplier' => sanitize($_POST['supplier']),
 				  'package_invoice' => sanitize($_POST['package_invoice']),
+				  'inspect_upload' => sanitize($_POST['inspect_upload']),
+				  'return_upload' => sanitize($_POST['return_upload']),
+				  'discard_upload' => sanitize($_POST['discard_upload']),
 				  'r_custom' => sanitize($_POST['r_custom']),
 				  'pay_mode' => sanitize($_POST['pay_mode']),
 				  'r_curren' => sanitize($_POST['r_curren']),
