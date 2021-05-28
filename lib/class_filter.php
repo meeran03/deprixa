@@ -35,6 +35,8 @@
 	  public static $msgs = array();
 	  public static $showMsg;
 	  public static $action = null;
+	  public static $c_name = null;
+	  public static $package_id = null;
 	  public static $do = null;
 
       /**
@@ -58,6 +60,8 @@
           self::$server = $_SERVER;
 
 		  self::getAction();
+		  self::getCompanyName();
+		  self::getPackageId();
 		  self::getDo();
 		  self::$id = self::getId();
       }
@@ -221,7 +225,7 @@
 	  {
 		  self::$showMsg = "<div class=\"alert alert-danger\" id=\"success-alert\"><p><span class=\"icon-minus-sign\"></span><i class=\"close icon-remove-circle\"></i><span>Error! </span> There was an error processing the request<ul class=\"error\">";
 		  foreach (self::$msgs as $msg) {
-			  self::$showMsg .= "<li><i class=\"icon-double-angle-right\"></i> " . $msg . "</li>\n";
+			  self::$showMsg .= "<li><i class=\"icon-double-angle-right\"></i><script>console.log(".json_encode($msgs).")</script> " . $msg . "</li>\n";
 		  }
 		  self::$showMsg .= "</ul></p></div>";
 		  
@@ -290,6 +294,32 @@
 				  self::error("You have selected an invalid action method","Filter::getAction()");
 			  } else
 				  return self::$action = $action;
+		  }
+	  }
+
+	  private static function getCompanyName()
+	  {
+		  if (isset(self::$get['c_name'])) {
+			  $c_name = ((string)self::$get['c_name']) ? (string)self::$get['c_name'] : false;
+			  $c_name = sanitize($c_name);
+			  
+			  if ($c_name == false) {
+				  self::error("You have not selected an c_name","Filter::getc_name()");
+			  } else
+				  return self::$c_name = $c_name;
+		  }
+	  }
+
+	  private static function getPackageId()
+	  {
+		  if (isset($_REQUEST['package_id'])) {
+			  self::$package_id = (is_numeric($_REQUEST['package_id']) && $_REQUEST['package_id'] > -1) ? intval($_REQUEST['package_id']) : false;
+			  self::$package_id = sanitize(self::$package_id);
+			  
+			  if (self::$package_id == false) {
+				  DEBUG == true ? self::error("You have selected an invalid package_id", "Filter::getPackageId()") : self::ooops();
+			  } else
+				  return self::$package_id;
 		  }
 	  }
 	  	  

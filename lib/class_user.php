@@ -1337,11 +1337,230 @@
               print Filter::msgStatus();
       }
 
-      /**
+	  public function BusinessRegister()
+	  {		  
+		
+		$_POST['username'] = $_POST['email'];
+		  if (empty($_POST['username']))
+			  Filter::$msgs['username'] = 'Enter a valid username';
+		  
+		//   if ($value = $this->usernameExists($_POST['username'])) {
+		// 	  if ($value == 1)
+		// 		  Filter::$msgs['username'] = 'Username is too short (less than 4 characters long).';
+		// 	  if ($value == 2)
+		// 		  Filter::$msgs['username'] = 'Invalid characters found in the username.';
+		// 	  if ($value == 3)
+		// 		  Filter::$msgs['username'] = 'Sorry, this username is already taken';
+		//   }
+
+		  if (empty($_POST['fname']))
+			  Filter::$msgs['fname'] = 'Please enter the name';
+			  
+		  if (empty($_POST['lname']))
+			  Filter::$msgs['lname'] = 'Please enter the last name';
+		  
+		  if (empty($_POST['phone']))
+			  Filter::$msgs['phone'] = 'Please enter the phone';
+		//   if (empty($_POST['address']))
+		// 	  Filter::$msgs['address'] = 'Please enter the address';
+		  
+		//   if (empty($_POST['country']))
+		// 	  Filter::$msgs['country'] = 'Please enter the country';
+		  
+		//   if (empty($_POST['city']))
+		// 	  Filter::$msgs['city'] = 'Please enter the city';
+		  
+		//   if (empty($_POST['postal']))
+		// 	  Filter::$msgs['postal'] = 'Please enter the zip code';
+			  
+		  if (empty($_POST['pass']))
+			  $this->msgs['pass'] = 'Enter a valid password.';
+		  
+		  if (strlen($_POST['pass']) < 6)
+			  Filter::$msgs['pass'] = 'Password is too short (less than 6 characters)';		  
+		  if ($_POST['pass'] != $_POST['pass2'])
+			  Filter::$msgs['pass'] = 'Your password does not match the confirmed password!.';
+		  
+		  if (empty($_POST['email']))
+			  Filter::$msgs['email'] = 'Enter a valid email address';
+		  
+		  if ($this->emailExists($_POST['email']))
+			  Filter::$msgs['email'] = 'The email address you entered is already in use.';
+		  
+		  if (!$this->isValidEmail($_POST['email']))
+			  Filter::$msgs['email'] = 'The email address you entered is invalid.';
+			  		  
+		  
+		  if (empty(Filter::$msgs)) {
+
+			  $token = (Registry::get("Core")->reg_verify == 1) ? $this->generateRandID() : 0;
+			  $pass = sanitize($_POST['pass']);
+			  
+              if (Registry::get("Core")->reg_verify == 1) {
+                  $active = "t";
+              } elseif (Registry::get("Core")->auto_verify == 0) {
+                  $active = "n";
+              } else {
+                  $active = "y";
+              }
+				  
+			  $data = array(
+					  'username' => sanitize($_POST['username']), 
+					  'password' => md5($_POST['pass']),
+					  'locker' => sanitize($_POST['locker']),
+					  'email' => sanitize($_POST['email']), 
+					  'fname' => sanitize($_POST['fname']),
+					  'lname' => sanitize($_POST['lname']),
+					  'business_service' => 1,
+					 // 'country' => sanitize($_POST['country']),				  
+					 // 'city' => sanitize($_POST['city']),
+					 // 'postal' => sanitize($_POST['postal']),
+					//   'code_phone' => sanitize($_POST['code_phone']),
+				      'phone' => sanitize($_POST['phone']),
+				    //   'address' => sanitize($_POST['address']),
+					  'token' => $token,
+					  'terms' => "yes",
+					  'privacy' => "yes",
+					  'active' => "y", 
+					  'created' => "NOW()"
+			  );
+			  
+			  if (!Filter::$id)
+                  $data['userlevel'] = 1;
+			  
+			  self::$db->insert(self::uTable, $data);
+		
+			  require_once(BASEPATH . "lib/class_mailer.php");
+			  
+              if (Registry::get("Core")->reg_verify == 1) {
+                  $actlink = Registry::get("Core")->site_url . "/activate.php";
+                  $row = Registry::get("Core")->getRowById("email_templates", 1);
+				  
+                  $body = str_replace(array(
+                      '[NAME]',
+                      '[USERNAME]',
+                      '[PASSWORD]',
+					  '[LOCKER]',
+                      '[TOKEN]',
+                      '[EMAIL]',
+                      '[URL]',
+                      '[LINK]',
+                      '[SITE_NAME]'), array(
+                      $data['fname'] . ' ' . $data['lname'],
+                      $data['username'],
+                      $_POST['pass'],
+					  $_POST['locker'],
+                      $token,
+                      $data['email'],
+                      Registry::get("Core")->site_url,
+                      $actlink,
+                      Registry::get("Core")->site_name), $row->body);
+						
+				 $newbody = cleanOut($body);	
+					 
+				  $mailer = $mail->sendMail();
+                  $message = Swift_Message::newInstance()
+							->setSubject($row->subject)
+							->setTo(array($data['email'] => $data['username']))
+							->setFrom(array(Registry::get("Core")->site_email => Registry::get("Core")->site_name))
+							->setBody($newbody, 'text/html');
+
+                  $mailer->send($message);
+				 
+              } elseif (Registry::get("Core")->auto_verify == 0) {
+                  $row = Registry::get("Core")->getRowById("email_templates", 14);
+				  
+                  $body = str_replace(array(
+                      '[NAME]',
+                      '[USERNAME]',
+                      '[PASSWORD]',
+					  '[LOCKER]',
+                      '[URL]',
+                      '[SITE_NAME]'), array(
+                      $data['fname'] . ' ' . $data['lname'],
+                      $data['username'],
+                      $_POST['pass'],
+					  $_POST['locker'],
+                      Registry::get("Core")->site_url,
+                      Registry::get("Core") ->site_name), $row->body);
+						
+				 $newbody = cleanOut($body);	
+
+				  $mailer = $mail->sendMail();
+                  $message = Swift_Message::newInstance()
+							->setSubject($row->subject)
+							->setTo(array($data['email'] => $data['username']))
+							->setFrom(array(Registry::get("Core")->site_email => Registry::get("Core")->site_name))
+							->setBody($newbody, 'text/html');
+							
+				 $mailer->send($message); 
+				  
+			  } else {
+				  $row = Registry::get("Core")->getRowById("email_templates", 7);
+				  
+                  $body = str_replace(array(
+                      '[NAME]',
+                      '[USERNAME]',
+                      '[PASSWORD]',
+					  '[LOCKER]',
+                      '[URL]',
+                      '[SITE_NAME]'), array(
+                      $data['fname'] . ' ' . $data['lname'],
+                      $data['username'],
+                      $_POST['pass'],
+					  $_POST['locker'],
+                      Registry::get("Core")->site_url,
+                      Registry::get("Core")->site_name), $row->body);
+						
+				 $newbody = cleanOut($body);	
+
+				  $mailer = $mail->sendMail();
+                  $message = Swift_Message::newInstance()
+							->setSubject($row->subject)
+							->setTo(array($data['email'] => $data['username']))
+							->setFrom(array(Registry::get("Core")->site_email => Registry::get("Core")->site_name))
+							->setBody($newbody, 'text/html');
+							
+				 $mailer->send($message);
+
+			  } if (Registry::get("Core")->notify_admin) {
+                  $arow = Registry::get("Core")->getRowById("email_templates", 13);
+  
+                  $abody = str_replace(array(
+                      '[USERNAME]',
+                      '[EMAIL]',
+					  '[LOCKER]',
+                      '[NAME]',
+                      '[IP]'), array(
+                      $data['username'],
+                      $data['email'],
+					  $data['locker'],
+                      $data['fname'] . ' ' . $data['lname'],
+                      $_SERVER['REMOTE_ADDR']), $arow->body);
+						  
+				   $anewbody = cleanOut($abody);	
+  
+				  $amailer = $mail->sendMail();
+                  $amessage = Swift_Message::newInstance()
+							->setSubject($arow->subject)
+							->setTo(array(Registry::get("Core")->site_email => Registry::get("Core")->site_name))
+							->setFrom(array(Registry::get("Core")->site_email => Registry::get("Core")->site_name))
+							->setBody($anewbody, 'text/html');
+							  
+				   $amailer->send($amessage);
+			  }
+			  
+              (self::$db->affected() && $mailer) ? Filter::msgOk("<span> Success! </span> You have successfully registered! and an email was sent with your details") : Filter::msgError('<span> Error! </span> An error occurred during the registration process. Contact the administrator ...', false);
+          } else
+              print Filter::msgStatus();
+      }
+
+	  /**
        * User::register()
        */
 	  public function register()
 	  {		  
+		
 		$_POST['username'] = $_POST['email'];
 		  if (empty($_POST['username']))
 			  Filter::$msgs['username'] = 'Enter a valid username';

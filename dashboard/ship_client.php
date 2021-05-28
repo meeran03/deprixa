@@ -225,7 +225,7 @@ $(document).ready(function(){
 		</div>
 	
 	
-		<div class="card">
+		<!-- <div class="card">
 			<div class="card-body">
 				<div class="row">
 					<!-- column -->
@@ -292,7 +292,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 <script src="app.js"></script>

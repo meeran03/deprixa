@@ -21,6 +21,8 @@
 
   if (!defined("_VALID_PHP"))
       die('Direct access to this location is not allowed.');
+  session_start();
+
 ?>
 <?php error_reporting(false);
   
@@ -75,6 +77,10 @@
   require_once(BASEPATH . "lib/class_services.php");
   Registry::set('Services',new Services());
   $services = Registry::get("Services");
+
+  require_once(BASEPATH . "lib/business/class_packages.php");
+  Registry::set('Business_packages',new Packages());
+  $business_packages = Registry::get("Business_packages");
   
   //StartUser Class 
   require_once(BASEPATH . "lib/class_courier.php");
