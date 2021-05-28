@@ -279,6 +279,18 @@
           return ($row) ? $row : 0;
 
       }
+
+      public function getCompanyList()
+      {
+		  
+	  		$sql = "SELECT a.id, a.user_id ,a.transaction_id, a.created_at, a.price, a.paid_amount, a.payment_status, 
+	  				a.c_name,a.package_id, a.status, a.price,s.name,s.price  FROM business_orders a, business_packages s 
+			WHERE a.user_id='".$this->uid."'  AND a.package_id=s.id ORDER BY a.id DESC";
+          $row = self::$db->fetch_all($sql);
+          
+          return ($row) ? $row : $sql;
+
+      }
 	  
 	  
 	  /**

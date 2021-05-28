@@ -50,9 +50,14 @@ $(document).ready(function(){
 <?php $Costrowconsolidate = $user->getcosstotalconsolidate(); ?>
 <?php $Costrowcourierx = $user->getcosstotalcourierpay(); ?>
 <?php $Costrowconsolidatex = $user->getcosstotalconsolidatepay(); ?>
+<?php $companyList = $user->getCompanyList(); ?>
+
+<script>
+	console.log(<?php echo json_encode($companyList) ?>)
+</script>
 
 <div class="row">
-	<!-- Column -->
+	
 	<?php 
 		 if (!($row->locker == "")):
 	?>
@@ -82,7 +87,10 @@ $(document).ready(function(){
 			</div>
 		</div>
 	<?php endif; ?>
-	<!-- Column -->
+	
+	<?php 
+		 if (($row->buying_service == 1)):
+	?>
 	<div class="col-sm-12 col-lg-8">
 		<div class="card">
 			<div class="card-body border-bottom">
@@ -151,39 +159,40 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+	<?php endif; ?>
 </div>
 
 <!-- Sales chart -->
 <!-- ============================================================== -->
 <div class="row">	
 	<div class="col-lg-12">
-				<div class="card">
+		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<!-- column -->
+					
 					<div class="d-md-flex align-items-center">
 						<div>
-							<h4 class="card-title"><?php echo $lang['left1014'] ?></h4>
+							<h4 class="card-title">Business Registration Orders</h4>
 						</div>
 					</div>
-					<!-- column -->
+					
 					<div id="msgholder"></div>
 					<div class="table-responsive">
 						<table id="zero_config" class="table table-striped" cellpadding="0" cellspacing="0" border="0" >
 							<thead>
 								<tr>
-									<th class="th-sm"><b><?php echo $lang['booking-list2'] ?></b></th>
-									<th class="th-sm"><b><?php echo $lang['booking-list3'] ?></b></th>
-									<th class="th-sm"><b><?php echo $lang['booking-list6'] ?></b></th>
-									<th class="th-sm"><b><?php echo $lang['left1015'] ?></b></th>
-									<th class="th-sm"><b><?php echo $lang['left1016'] ?></b></th>
-									<th class="th-sm"><b><?php echo $lang['left1017'] ?></b></th>
-									<th class="th-sm"><b><?php echo $lang['left1018'] ?></b></th>
+									<th class="th-sm"><b>Order Id</b></th>
+									<th class="th-sm"><b>Company Name</b></th>
+									<th class="th-sm"><b>Package Name</b></th>
+									<th class="th-sm"><b>Price</b></th>
+									<th class="th-sm"><b>Transaction ID</b></th>
+									<th class="th-sm"><b>Payment Status</b></th>
+									<th class="th-sm"><b>Order Status</b></th>
 								</tr>
 							</thead>
 							<tbody id="projects-tbl">
 								
-								<?php if(!$quoterow):?>
+								<?php if(!$companyList):?>
 								<tr>
 									<td colspan="7">
 									<?php echo "
@@ -192,16 +201,23 @@ $(document).ready(function(){
 									</td>
 								</tr>
 								<?php else:?>
-								<?php foreach ($quoterow  as $row):?>
+								<?php foreach ($companyList  as $row):?>
 								<tr class="card-hover">			
-									<td><b><?php echo $row->order_quote;?></b></td>
-									<td><?php echo $row->created;?></td>
-									<td><?php echo $row->r_dest;?> | <?php echo $row->r_city;?> </td>
-									<td><?php echo $core->currency;?> <?php echo $row->price_product;?></td>
-									<td><?php echo $core->currency;?> <?php echo $row->r_costotal;?></td>
-									<td><span style="background: <?php echo $row->color; ?>;"  class="label label-large" ><?php echo $row->status_quote;?></span></td>
+									<td><b><?php echo $row->id;?></b></td>
+									<td><?php echo $row->c_name;?></td>
+									<td><?php echo $row->name;?></td>
+									<td><?php echo $core->currency;?> <?php echo ($row->paid_amount)/100;?></td>
+									<td><?php echo $row->transaction_id;?></td>
+									<td><?php echo ($row->payment_status);?></td>
+									<?php 
+										if ($row->status == "In Review") 
+											$row->color = "#a89d32";
+										else 
+											$row->color = "green"
+									?>
+									<td  class="col-2" ><span style="background: <?php echo $row->color; ?>;"  class="label label-large" ><?php echo $row->status;?></span></td>
 									
-									<?php if($row->idquote == 2){ ?>
+									<!-- <?php if($row->idquote == 2){ ?>
 									<td align='center'>
 										<a  href="edit_quote.php?do=edit_quote&amp;action=edit&amp;id=<?php echo $row->id;?>" ><button type="button" class="btn btn-sm btn-icon btn-success btn-outline"><?php echo $lang['left1019'] ?></button></a>
 									</td>
@@ -209,7 +225,7 @@ $(document).ready(function(){
 									<td><b><em><?php echo $lang['left1020'] ?></em></b></td>
 									<?php }else{ ?>
 									<td><b><em><?php echo $lang['left1021'] ?></em></b></td>
-									<?php } ?>
+									<?php } ?> -->
 								</tr>											
 								<?php endforeach;?>
 								<?php unset($row);?>
@@ -218,7 +234,7 @@ $(document).ready(function(){
 						</table>
 						<?php echo $pager->display_pages();?>
 						<?php echo Core::doDelete("Delete Shipment","deleteCourier");?> 
-						<!-- column -->
+						
 					</div>
 				</div>
 			</div>
@@ -228,13 +244,13 @@ $(document).ready(function(){
 		<!-- <div class="card">
 			<div class="card-body">
 				<div class="row">
-					<!-- column -->
+					
 					<div class="d-md-flex align-items-center">
 						<div>
 							<h4 class="card-title"><?php echo $lang['left1022'] ?></h4>
 						</div>
 					</div>
-					<!-- column -->
+					
 					<div id="msgholder"></div>
 					<div class="table-responsive">
 						<table id="zero_config" class="table table-striped" cellpadding="0" cellspacing="0" border="0" >
@@ -262,7 +278,6 @@ $(document).ready(function(){
 								<?php foreach ($courier_onlinerow  as $row):
 								
 								$suma=0;
-								// total shipping cost
 								$total=$row->r_costtotal;
 								$total=number_format($total,2,'.','');
 								$suma+=$total;
@@ -288,7 +303,7 @@ $(document).ready(function(){
 						</table>
 						<?php echo $pager->display_pages();?>
 						<?php echo Core::doDelete("Delete Shipment","deleteCourier");?> 
-						<!-- column -->
+						
 					</div>
 				</div>
 			</div>
